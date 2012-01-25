@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Config>
+    <YYType>1</YYType>
+    <SandBoxie use="1" name="DefaultBox" />
+    <NickName>
+        <value>字幕准备中</value>
+    </NickName>
+    <Prefix>
+        <value>♪</value>
+        <value>☞</value>
+    </Prefix>
+    <Postfix>
+        <value>☜</value>
+    </Postfix>
+    <Filter>
+        <value>QQ</value>
+        <value>qq</value>
+        <value>制作</value>
+        <value>www</value>
+        <value>@</value>
+        <value>lrc</value>
+        <value>编辑</value>
+        <value>com</value>
+    </Filter>
+    <Align>1</Align>
+    <Key use="0">
+        <Fresh ctrl="0" shift="0" alt="0" code="116" />
+        <Begin ctrl="1" shift="0" alt="0" code="80" />
+        <Stop ctrl="1" shift="0" alt="0" code="76" />
+        <Forward ctrl="1" shift="0" alt="0" code="39" />
+        <Backward ctrl="1" shift="0" alt="0" code="37" />
+    </Key>
+</Config>
