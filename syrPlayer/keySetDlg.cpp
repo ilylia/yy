@@ -242,7 +242,7 @@ void CkeySetDlg::OnBnClickedOk()
 {
 	getKey();
 
-	CYYnickDlg* dlg = (CYYnickDlg*)GetParent();
+	CsyrPlayerDlg* dlg = (CsyrPlayerDlg*)GetParent();
 	dlg->unregHotKey();
 	dlg->regHotKey();
 

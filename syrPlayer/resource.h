@@ -12,7 +12,6 @@
 #define IDI_ICON2                       131
 #define IDD_DIALOG1                     132
 #define IDD_DIALOG_KEYSET               132
-#define IDD_DIALOG_FRESHSET             133
 #define IDC_BUTTON_FRESH                1000
 #define IDC_BUTTON_FRESHSET             1001
 #define IDC_PIC                         1002
@@ -66,10 +65,6 @@
 #define IDC_LINK_69120                  1053
 #define IDC_LINK_8095                   1054
 #define IDC_LINK_ZIMUZU                 1055
-#define IDC_CHECK_YYMAIN                1056
-#define IDC_CHECK_YYSETUP               1057
-#define IDC_CHECK_SANDBOXIE             1058
-#define IDC_EDIT_SBNAME                 1059
 #define IDC_CHECK_USEKEY                1060
 
 // Next default values for new objects

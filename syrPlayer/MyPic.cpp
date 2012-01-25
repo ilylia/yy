@@ -61,7 +61,7 @@ void CMyPic::OnLButtonUp(UINT nFlags, CPoint point)
 	HANDLE hWnd = ::WindowFromPoint(pt);
 
 //	CWnd* pParent = GetParent();
-	CYYnickDlg* pDlg = (CYYnickDlg*)GetParent();
+	CsyrPlayerDlg* pDlg = (CsyrPlayerDlg*)GetParent();
 	pDlg->changeHandle(hWnd);
 
 // 	//因为::WindowFromPoint(pt)对不可用的窗口无效，所以，为了能选中

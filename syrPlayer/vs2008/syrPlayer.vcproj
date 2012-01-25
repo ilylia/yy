@@ -194,15 +194,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\FreshSetDlg.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\HyperLink.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\keySetDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ListCtrlEditable.cpp"
 				>
 			</File>
 			<File
@@ -256,15 +256,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\FreshSetDlg.h"
-				>
-			</File>
-			<File
 				RelativePath="..\HyperLink.h"
 				>
 			</File>
 			<File
 				RelativePath="..\keySetDlg.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ListCtrlEditable.h"
 				>
 			</File>
 			<File
