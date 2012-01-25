@@ -1,0 +1,288 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(中华人民共和国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\syrMaker.rc2""  // 非 Microsoft Visual C++ 编辑的资源\r\n"
+    "#include ""afxres.rc""     // 标准组件\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\syrMaker.ico"
+IDR_SYRDOC              ICON                    "res\\syrMakerDoc.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 235, 151
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 syrMaker"
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,9,12,20,20
+    LTEXT           "YY花式字幕编辑器 v0.3.1 2011.06.11 19:00",IDC_STATIC_VER,40,10,183,8,SS_NOPREFIX
+    DEFPUSHBUTTON   "确定",IDOK,93,126,50,16,WS_GROUP
+    LTEXT           "夕四（6968677|8095）制作",IDC_STATIC,40,25,119,8
+    LTEXT           "感谢",IDC_STATIC,28,46,185,8
+    LTEXT           "小葵，给与我动手的动力",IDC_STATIC,44,59,152,8
+    LTEXT           "花花，提供图标等资源",IDC_STATIC,44,74,152,8
+    LTEXT           "柒柒、风铃、雨荷、749、小五，",IDC_STATIC,44,89,152,8
+    LTEXT           "以及花弄影字幕组的各位成员等，帮我测试",IDC_STATIC,44,104,152,8
+    LTEXT           "6968677",IDC_LINK_69120,64,25,21,8
+    LTEXT           "8095",IDC_LINK_8095,96,25,17,8
+    LTEXT           "花弄影字幕组",IDC_LINK_ZIMUZU,60,104,48,8
+    LTEXT           "感谢您的使用~",IDC_STATIC,163,119,50,8
+END
+
+IDD_SYRMAKER_DIALOG DIALOGEX 0, 0, 440, 205
+STYLE DS_SETFONT | DS_MODALFRAME | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_ACCEPTFILES | WS_EX_APPWINDOW
+CAPTION "syrMaker"
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    GROUPBOX        "编辑区",IDC_GROUP_EDIT,10,10,203,36
+    GROUPBOX        "文本区",IDC_GROUP_TEXT,228,10,203,36
+    LTEXT           "1麦",IDC_STATIC_EDIT_BASE,20,28,12,8
+    EDITTEXT        IDC_EDIT_REFER,38,26,165,12,NOT WS_VISIBLE | NOT WS_BORDER
+    PUSHBUTTON      "新建",IDC_BUTTON_NEW,76,54,40,14
+    PUSHBUTTON      "载入",IDC_BUTTON_LOAD,76,70,40,14
+    PUSHBUTTON      "保存",IDC_BUTTON_SAVE,118,54,40,14
+    PUSHBUTTON      "另存为",IDC_BUTTON_SAVEAS,118,70,40,14
+    PUSHBUTTON      "+ + +",IDC_BUTTON_ADD,181,48,37,14
+    PUSHBUTTON      "- - -",IDC_BUTTON_DEL,221,48,37,14
+    PUSHBUTTON      "开始",IDC_BTN_BEGIN,269,54,35,14
+    PUSHBUTTON      "停止",IDC_BTN_STOP,305,54,35,14
+    PUSHBUTTON      "步进",IDC_BTN_STEPFORWARD,269,70,35,14
+    PUSHBUTTON      "步退",IDC_BTN_STEPBACK,305,70,35,14
+    DEFPUSHBUTTON   "关于",IDC_BUTTON_ABOUT,196,73,50,14
+    CTEXT           "00:00",IDC_STATIC_TIME,378,58,51,22,SS_CENTERIMAGE | WS_BORDER
+    GROUPBOX        "时间轴",IDC_GROUP_TIMEAXIS,10,86,421,108
+    CONTROL         "",IDC_STATIC_TIMEAXIS,"Static",SS_BLACKFRAME | SS_NOTIFY,20,100,400,84
+    CONTROL         "",IDC_RICHEDIT21_TEXT,"RichEdit20W",ES_MULTILINE | ES_NOHIDESEL | ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,238,26,180,12
+    PUSHBUTTON      "快进",IDC_BTN_FORWARD,343,54,26,14
+    PUSHBUTTON      "快退",IDC_BTN_BACKWARD,343,70,26,14
+    PUSHBUTTON      "YY\n列表",IDC_BUTTON_YYLIST,11,55,24,24,BS_MULTILINE
+    PUSHBUTTON      "文件\n列表",IDC_BUTTON_FILELIST,40,55,24,24,BS_MULTILINE
+    PUSHBUTTON      "-",IDC_BUTTON_REFER,214,24,13,14,NOT WS_VISIBLE
+END
+
+IDD_DIALOG_TIMESET DIALOGEX 0, 0, 112, 66
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CENTERMOUSE | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "时间"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT_MIN,10,24,27,12,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           ":",IDC_STATIC_MM,40,25,8,8
+    EDITTEXT        IDC_EDIT_SEC,48,24,14,12,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           ":",IDC_STATIC_SS,65,25,8,8
+    EDITTEXT        IDC_EDIT_MS,73,24,26,12,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_EDIT_MSMS,22,24,40,12,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER | NOT WS_VISIBLE
+    LTEXT           "ms",IDC_STATIC_MS,63,26,10,8,NOT WS_VISIBLE
+    DEFPUSHBUTTON   "确定",IDOK,10,43,42,15
+    PUSHBUTTON      "取消",IDCANCEL,58,43,42,15
+    CONTROL         "mm:ss:ms",IDC_RADIO_MSM,"Button",BS_AUTORADIOBUTTON,12,7,47,10
+    CONTROL         "ms",IDC_RADIO_MS,"Button",BS_AUTORADIOBUTTON,73,7,25,10
+END
+
+IDD_DIALOG_TIMECOPY DIALOGEX 0, 0, 125, 85
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CENTERMOUSE | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "时间"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT_MIN,26,41,27,12,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           ":",IDC_STATIC_MM,56,42,8,8
+    EDITTEXT        IDC_EDIT_SEC,64,41,14,12,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           ":",IDC_STATIC_SS,81,42,8,8
+    EDITTEXT        IDC_EDIT_MS,89,41,26,12,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_EDIT_MSMS,38,41,40,12,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER | NOT WS_VISIBLE
+    LTEXT           "ms",IDC_STATIC_MS,79,43,10,8,NOT WS_VISIBLE
+    DEFPUSHBUTTON   "确定",IDOK,10,60,42,15
+    PUSHBUTTON      "取消",IDCANCEL,58,60,42,15
+    CONTROL         "-",IDC_CHECK_MINUS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,42,17,10
+    CONTROL         "复制到",IDC_RADIO_COPYTO,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,16,7,40,10
+    CONTROL         "时间偏移",IDC_RADIO_TIMEOFFSET,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,66,7,48,10
+    CONTROL         "mm:ss:ms",IDC_RADIO_MSM,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,16,24,47,10
+    CONTROL         "ms",IDC_RADIO_MS,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,66,24,25,10
+END
+
+IDD_DIALOG_YYLIST DIALOGEX 0, 0, 203, 191
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "YY列表"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST_YY,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,11,36,162,145
+    PUSHBUTTON      "刷新",IDC_BTN_YYL_FRESH,46,7,36,14
+    PUSHBUTTON      "设置",IDC_BTN_YYL_FRESHSET,113,7,36,14
+    GROUPBOX        "YY号",IDC_STATIC,5,26,193,161
+    PUSHBUTTON      "上移",IDC_BTN_YYL_UP,177,40,16,24,BS_MULTILINE
+    PUSHBUTTON      "下移",IDC_BTN_YYL_DOWN,178,94,16,24,BS_MULTILINE
+    PUSHBUTTON      "删除",IDC_BTN_YYL_DEL,178,154,16,24,BS_MULTILINE
+END
+
+IDD_DIALOG_FRESHSET DIALOGEX 0, 0, 140, 102
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "搜索YY设置"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,13,75,50,14
+    PUSHBUTTON      "取消",IDCANCEL,73,75,50,14
+    CONTROL         "YY主界面",IDC_CHECK_YYMAIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,12,48,10
+    CONTROL         "YY设置界面",IDC_CHECK_YYSETUP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,31,56,10
+    CONTROL         "沙盘运行",IDC_CHECK_SANDBOXIE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,50,48,10
+    EDITTEXT        IDC_EDIT_SBNAME,64,48,56,14,ES_AUTOHSCROLL
+END
+
+IDD_DIALOG_FILELIST DIALOGEX 0, 0, 200, 180
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "文件列表"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_TREE_FILE,"SysTreeView32",TVS_SHOWSELALWAYS | TVS_FULLROWSELECT | WS_BORDER | WS_HSCROLL | WS_TABSTOP,15,53,168,115
+    PUSHBUTTON      "刷新",IDC_BUTTON_PATHFRE,8,6,30,14
+    LTEXT           "路径",IDC_STATIC,46,9,17,8
+    EDITTEXT        IDC_EDIT_PATH,64,7,101,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BUTTON_PATH,165,7,28,12
+    GROUPBOX        "文件列表",IDC_STATIC,7,22,184,153
+    LTEXT           "搜索",IDC_STATIC,14,36,17,8
+    EDITTEXT        IDC_EDIT_FILE_SEARCH,37,33,147,14,ES_AUTOHSCROLL
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 0,3,1,0
+ PRODUCTVERSION 0,3,1,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU_TIMEAXIS MENU 
+BEGIN
+    POPUP "时间轴区域右键"
+    BEGIN
+        MENUITEM "复制...",                       ID_TIMEAXIS_COPY
+    END
+END
+
+IDR_MENU_SYRMAKER MENU 
+BEGIN
+    POPUP "主界面右键"
+    BEGIN
+        MENUITEM "从lrc导入时间点",               ID_SYRMAKER_LOADLRCTP
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "关于 syrMaker(&A)..."
+END
+
+#endif    // 中文(中华人民共和国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\syrMaker.rc2"  // 非 Microsoft Visual C++ 编辑的资源
+#include "afxres.rc"     // 标准组件
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,263 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(中华人民共和国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\YYnick.rc2""  // 非 Microsoft Visual C++ 编辑的资源\r\n"
+    "#include ""afxres.rc""     // 标准组件\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\YYnick.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 235, 153
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 YYnick"
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,9,12,21,21
+    LTEXT           "YY花式字幕器 v0.8.6 2011.06.11 19:00",IDC_STATIC_VER,40,10,183,8,SS_NOPREFIX
+    DEFPUSHBUTTON   "确定",IDOK,93,129,50,16,WS_GROUP
+    LTEXT           "夕四（6968677|8095）制作",IDC_STATIC,40,25,119,8
+    LTEXT           "感谢",IDC_STATIC,28,46,185,8
+    LTEXT           "小葵，给与我动手的动力",IDC_STATIC,44,59,152,8
+    LTEXT           "花花，提供图标等资源",IDC_STATIC,44,74,152,8
+    LTEXT           "柒柒、风铃、雨荷、749、小五，",IDC_STATIC,44,89,152,8
+    LTEXT           "以及花弄影字幕组的各位成员等，帮我测试",IDC_STATIC,44,104,152,8
+    LTEXT           "6968677",IDC_LINK_69120,64,25,21,8
+    LTEXT           "8095",IDC_LINK_8095,96,25,17,8
+    LTEXT           "花弄影字幕组",IDC_LINK_ZIMUZU,60,104,48,8
+    LTEXT           "感谢您的使用~",IDC_STATIC,163,119,50,8
+END
+
+IDD_YYNICK_DIALOG DIALOGEX 0, 0, 361, 298
+STYLE DS_SETFONT | DS_3DLOOK | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_ACCEPTFILES | WS_EX_APPWINDOW
+CAPTION "YYnick"
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "刷新",IDC_BUTTON_FRESH,20,20,36,15
+    GROUPBOX        "字幕",IDC_STATIC,170,7,188,286
+    CONTROL         "",IDC_SLIDER_TIME,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,176,42,175,15
+    PUSHBUTTON      "开始",IDC_BTN_BEGIN,180,23,26,14
+    PUSHBUTTON      "停止",IDC_BTN_STOP,212,23,26,14
+    PUSHBUTTON      "快进",IDC_BTN_FORWARD,245,23,26,14
+    PUSHBUTTON      "快退",IDC_BTN_BACKWARD,277,23,26,14
+    CONTROL         "00:00",IDC_STATIC_TIME,"Static",SS_LEFTNOWORDWRAP | SS_CENTERIMAGE | WS_GROUP,308,18,44,23
+    CONTROL         "",IDC_TREE_LRCCON,"SysTreeView32",TVS_SHOWSELALWAYS | TVS_FULLROWSELECT | WS_BORDER | WS_HSCROLL | WS_TABSTOP,180,62,168,222
+    LTEXT           "前缀",IDC_STATIC,12,157,17,8
+    LTEXT           "后缀",IDC_STATIC,12,175,17,8
+    COMBOBOX        IDC_PREFIX,35,155,116,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_POSTFIX,35,173,116,30,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "昵称",IDC_STATIC,12,139,17,8
+    COMBOBOX        IDC_NICKNAME,35,137,116,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_FILTER,35,219,116,45,ES_MULTILINE | ES_NOHIDESEL | ES_WANTRETURN | WS_VSCROLL
+    LTEXT           "过滤关键词：",IDC_STATIC,12,204,49,8
+    CONTROL         "",IDC_LIST_YY,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,11,39,131,93
+    PUSHBUTTON      "上移",IDC_BUTTON_UP,146,43,16,26,BS_MULTILINE
+    PUSHBUTTON      "下移",IDC_BUTTON_DOWN,145,73,16,26,BS_MULTILINE
+    PUSHBUTTON      "删除",IDC_BUTTON_DEL,146,104,16,26,BS_MULTILINE
+    GROUPBOX        "YY号",IDC_STATIC,5,8,160,184
+    CONTROL         "两端对齐",IDC_CHECK_ALIGN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,113,23,48,10
+    COMBOBOX        IDC_COMBO_TYPE,47,1,55,30,CBS_DROPDOWNLIST | NOT WS_VISIBLE | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "快捷键设置",IDC_BUTTON_KEYSET,23,273,50,17
+    DEFPUSHBUTTON   "关于",IDC_BUTTON_ABOUT,93,273,50,17
+    PUSHBUTTON      "设置",IDC_BUTTON_FRESHSET,65,20,36,15
+    CONTROL         "",IDC_CHECK_USEKEY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,277,8,10
+END
+
+IDD_DIALOG_KEYSET DIALOGEX 0, 0, 226, 153
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "设置快捷键"
+FONT 9, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,41,130,50,14
+    PUSHBUTTON      "取消",IDCANCEL,124,130,50,14
+    GROUPBOX        "",IDC_STATIC,11,11,200,110
+    LTEXT           "刷新：",IDC_STATIC,24,25,24,8
+    CONTROL         "Ctrl +",IDC_CHECK_CTRL_FRESH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,56,24,34,10
+    CONTROL         "Shift +",IDC_CHECK_SHIFT_FRESH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,90,24,36,10
+    CONTROL         "Alt +",IDC_CHECK_ALT_FRESH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,129,24,30,10
+    COMBOBOX        IDC_COMBO_FRESH,161,23,41,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_FRESH,195,22,24,14,ES_CENTER | ES_AUTOHSCROLL | NOT WS_VISIBLE
+    LTEXT           "开始：",IDC_STATIC,23,44,24,8
+    CONTROL         "Ctrl +",IDC_CHECK_CTRL_BEGIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,55,43,34,10
+    CONTROL         "Shift +",IDC_CHECK_SHIFT_BEGIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,90,43,36,10
+    CONTROL         "Alt +",IDC_CHECK_ALT_BEGIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,128,43,30,10
+    COMBOBOX        IDC_COMBO_BEGIN,161,42,41,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_BEGIN,195,41,24,14,ES_CENTER | ES_AUTOHSCROLL | NOT WS_VISIBLE
+    LTEXT           "停止：",IDC_STATIC,23,62,24,8
+    CONTROL         "Ctrl +",IDC_CHECK_CTRL_STOP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,55,61,34,10
+    CONTROL         "Shift +",IDC_CHECK_SHIFT_STOP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,90,61,36,10
+    CONTROL         "Alt +",IDC_CHECK_ALT_STOP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,128,61,30,10
+    COMBOBOX        IDC_COMBO_STOP,161,60,41,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_STOP,195,59,24,14,ES_CENTER | ES_AUTOHSCROLL | NOT WS_VISIBLE
+    LTEXT           "快进：",IDC_STATIC,23,82,24,8
+    CONTROL         "Ctrl +",IDC_CHECK_CTRL_FORWARD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,55,81,34,10
+    CONTROL         "Shift +",IDC_CHECK_SHIFT_FORWARD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,90,81,36,10
+    CONTROL         "Alt +",IDC_CHECK_ALT_FORWARD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,128,81,30,10
+    COMBOBOX        IDC_COMBO_FORWARD,161,80,41,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_FORWARD,195,79,24,14,ES_CENTER | ES_AUTOHSCROLL | NOT WS_VISIBLE
+    LTEXT           "快退：",IDC_STATIC,23,101,24,8
+    CONTROL         "Ctrl +",IDC_CHECK_CTRL_BACKWARD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,55,100,34,10
+    CONTROL         "Shift +",IDC_CHECK_SHIFT_BACKWARD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,90,100,36,10
+    CONTROL         "Alt +",IDC_CHECK_ALT_BACKWARD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,128,100,30,10
+    COMBOBOX        IDC_COMBO_BACKWARD,161,99,41,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_BACKWARD,195,98,24,14,ES_CENTER | ES_AUTOHSCROLL | NOT WS_VISIBLE
+    CONTROL         "使用快捷键",IDC_CHECK_USEKEY,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,16,10,44,10
+END
+
+IDD_DIALOG_FRESHSET DIALOGEX 0, 0, 140, 102
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "搜索YY设置"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,13,75,50,14
+    PUSHBUTTON      "取消",IDCANCEL,73,75,50,14
+    CONTROL         "YY主界面",IDC_CHECK_YYMAIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,12,48,10
+    CONTROL         "YY设置界面",IDC_CHECK_YYSETUP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,31,56,10
+    CONTROL         "沙盘运行",IDC_CHECK_SANDBOXIE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,50,48,10
+    EDITTEXT        IDC_EDIT_SBNAME,64,48,56,14,ES_AUTOHSCROLL
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 0,8,6,0
+ PRODUCTVERSION 0,8,6,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_CURSOR1             CURSOR                  "res\\eye.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 151
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "关于 YYnick(&A)..."
+END
+
+#endif    // 中文(中华人民共和国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\YYnick.rc2"  // 非 Microsoft Visual C++ 编辑的资源
+#include "afxres.rc"     // 标准组件
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
