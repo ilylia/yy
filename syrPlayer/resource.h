@@ -65,6 +65,7 @@
 #define IDC_LINK_69120                  1053
 #define IDC_LINK_8095                   1054
 #define IDC_LINK_ZIMUZU                 1055
+#define IDC_STATIC_BINTIME              1056
 #define IDC_CHECK_USEKEY                1060
 
 // Next default values for new objects

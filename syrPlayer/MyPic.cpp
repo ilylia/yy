@@ -42,9 +42,10 @@ void CMyPic::OnLButtonDown(UINT nFlags, CPoint point)
 	::SetCursor(hc);
 	HICON hicon2=LoadIcon(AfxGetApp()->m_hInstance,MAKEINTRESOURCE(IDI_ICON2));
 	this->SetIcon(hicon2);
-	//GetDlgItem(IDOK)->SetWindowText("OK");
-	//FromHandle(g_hMe)->OnTimer(1);
-//	FromHandle(g_hMe)->SetTimer(1,600,NULL);
+
+	//// Òþ²ØÈí¼þ´°¿Ú
+	//GetParent()->ShowWindow(SW_HIDE);
+
 	CStatic::OnLButtonDown(nFlags, point);
 }
 
@@ -60,7 +61,9 @@ void CMyPic::OnLButtonUp(UINT nFlags, CPoint point)
 	::GetCursorPos(&pt);
 	HANDLE hWnd = ::WindowFromPoint(pt);
 
-//	CWnd* pParent = GetParent();
+	//// Òþ²ØÈí¼þ´°¿Ú
+	//GetParent()->ShowWindow(SW_SHOW);
+
 	CsyrPlayerDlg* pDlg = (CsyrPlayerDlg*)GetParent();
 	pDlg->changeHandle(hWnd);
 

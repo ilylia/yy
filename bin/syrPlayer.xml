@@ -10,8 +10,7 @@
         <value>编辑</value>
         <value>com</value>
     </Filter>
-    <Key use="0">
-        <Fresh ctrl="1" shift="0" alt="0" code="48" />
+    <Key use="1">
         <Begin ctrl="1" shift="0" alt="0" code="80" />
         <Stop ctrl="1" shift="0" alt="0" code="76" />
         <Forward ctrl="1" shift="0" alt="0" code="39" />

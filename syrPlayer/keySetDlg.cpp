@@ -32,11 +32,6 @@ IMPLEMENT_DYNAMIC(CkeySetDlg, CDialog)
 
 CkeySetDlg::CkeySetDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CkeySetDlg::IDD, pParent)
-// 	, m_cFresh(_T(""))
-// 	, m_cBegin(_T(""))
-// 	, m_cStop(_T(""))
-// 	, m_cForward(_T(""))
-// 	, m_cBackward(_T(""))
 {
 	m_pKeySet = NULL;
 }
@@ -48,16 +43,6 @@ CkeySetDlg::~CkeySetDlg()
 void CkeySetDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-// 	DDX_Text(pDX, IDC_EDIT_FRESH, m_cFresh);
-// 	DDV_MaxChars(pDX, m_cFresh, 1);
-// 	DDX_Text(pDX, IDC_EDIT_BEGIN, m_cBegin);
-// 	DDV_MaxChars(pDX, m_cBegin, 1);
-// 	DDX_Text(pDX, IDC_EDIT_STOP, m_cStop);
-// 	DDV_MaxChars(pDX, m_cStop, 1);
-// 	DDX_Text(pDX, IDC_EDIT_FORWARD, m_cForward);
-// 	DDV_MaxChars(pDX, m_cForward, 1);
-// 	DDX_Text(pDX, IDC_EDIT_BACKWARD, m_cBackward);
-// 	DDV_MaxChars(pDX, m_cBackward, 1);
 }
 
 
@@ -127,30 +112,25 @@ int CkeySetDlg::setKey()
 	if (m_pKeySet == NULL)
 		return 0;
 
-	((CButton*)GetDlgItem(IDC_CHECK_CTRL_FRESH))->SetCheck(m_pKeySet[0].bCtrl);
-	((CButton*)GetDlgItem(IDC_CHECK_SHIFT_FRESH))->SetCheck(m_pKeySet[0].bShift);
-	((CButton*)GetDlgItem(IDC_CHECK_ALT_FRESH))->SetCheck(m_pKeySet[0].bAlt);
-	((CComboBox*)GetDlgItem(IDC_COMBO_FRESH))->SetCurSel(getIndex(m_pKeySet[0].uCode));
+	((CButton*)GetDlgItem(IDC_CHECK_CTRL_BEGIN))->SetCheck(m_pKeySet[KEYSET_BEGIN].bCtrl);
+	((CButton*)GetDlgItem(IDC_CHECK_SHIFT_BEGIN))->SetCheck(m_pKeySet[KEYSET_BEGIN].bShift);
+	((CButton*)GetDlgItem(IDC_CHECK_ALT_BEGIN))->SetCheck(m_pKeySet[KEYSET_BEGIN].bAlt);
+	((CComboBox*)GetDlgItem(IDC_COMBO_BEGIN))->SetCurSel(getIndex(m_pKeySet[KEYSET_BEGIN].uCode));
 
-	((CButton*)GetDlgItem(IDC_CHECK_CTRL_BEGIN))->SetCheck(m_pKeySet[1].bCtrl);
-	((CButton*)GetDlgItem(IDC_CHECK_SHIFT_BEGIN))->SetCheck(m_pKeySet[1].bShift);
-	((CButton*)GetDlgItem(IDC_CHECK_ALT_BEGIN))->SetCheck(m_pKeySet[1].bAlt);
-	((CComboBox*)GetDlgItem(IDC_COMBO_BEGIN))->SetCurSel(getIndex(m_pKeySet[1].uCode));
+	((CButton*)GetDlgItem(IDC_CHECK_CTRL_STOP))->SetCheck(m_pKeySet[KEYSET_STOP].bCtrl);
+	((CButton*)GetDlgItem(IDC_CHECK_SHIFT_STOP))->SetCheck(m_pKeySet[KEYSET_STOP].bShift);
+	((CButton*)GetDlgItem(IDC_CHECK_ALT_STOP))->SetCheck(m_pKeySet[KEYSET_STOP].bAlt);
+	((CComboBox*)GetDlgItem(IDC_COMBO_STOP))->SetCurSel(getIndex(m_pKeySet[KEYSET_STOP].uCode));
 
-	((CButton*)GetDlgItem(IDC_CHECK_CTRL_STOP))->SetCheck(m_pKeySet[2].bCtrl);
-	((CButton*)GetDlgItem(IDC_CHECK_SHIFT_STOP))->SetCheck(m_pKeySet[2].bShift);
-	((CButton*)GetDlgItem(IDC_CHECK_ALT_STOP))->SetCheck(m_pKeySet[2].bAlt);
-	((CComboBox*)GetDlgItem(IDC_COMBO_STOP))->SetCurSel(getIndex(m_pKeySet[2].uCode));
+	((CButton*)GetDlgItem(IDC_CHECK_CTRL_FORWARD))->SetCheck(m_pKeySet[KEYSET_FORWARD].bCtrl);
+	((CButton*)GetDlgItem(IDC_CHECK_SHIFT_FORWARD))->SetCheck(m_pKeySet[KEYSET_FORWARD].bShift);
+	((CButton*)GetDlgItem(IDC_CHECK_ALT_FORWARD))->SetCheck(m_pKeySet[KEYSET_FORWARD].bAlt);
+	((CComboBox*)GetDlgItem(IDC_COMBO_FORWARD))->SetCurSel(getIndex(m_pKeySet[KEYSET_FORWARD].uCode));
 
-	((CButton*)GetDlgItem(IDC_CHECK_CTRL_FORWARD))->SetCheck(m_pKeySet[3].bCtrl);
-	((CButton*)GetDlgItem(IDC_CHECK_SHIFT_FORWARD))->SetCheck(m_pKeySet[3].bShift);
-	((CButton*)GetDlgItem(IDC_CHECK_ALT_FORWARD))->SetCheck(m_pKeySet[3].bAlt);
-	((CComboBox*)GetDlgItem(IDC_COMBO_FORWARD))->SetCurSel(getIndex(m_pKeySet[3].uCode));
-
-	((CButton*)GetDlgItem(IDC_CHECK_CTRL_BACKWARD))->SetCheck(m_pKeySet[4].bCtrl);
-	((CButton*)GetDlgItem(IDC_CHECK_SHIFT_BACKWARD))->SetCheck(m_pKeySet[4].bShift);
-	((CButton*)GetDlgItem(IDC_CHECK_ALT_BACKWARD))->SetCheck(m_pKeySet[4].bAlt);
-	((CComboBox*)GetDlgItem(IDC_COMBO_BACKWARD))->SetCurSel(getIndex(m_pKeySet[4].uCode));
+	((CButton*)GetDlgItem(IDC_CHECK_CTRL_BACKWARD))->SetCheck(m_pKeySet[KEYSET_BACKWARD].bCtrl);
+	((CButton*)GetDlgItem(IDC_CHECK_SHIFT_BACKWARD))->SetCheck(m_pKeySet[KEYSET_BACKWARD].bShift);
+	((CButton*)GetDlgItem(IDC_CHECK_ALT_BACKWARD))->SetCheck(m_pKeySet[KEYSET_BACKWARD].bAlt);
+	((CComboBox*)GetDlgItem(IDC_COMBO_BACKWARD))->SetCurSel(getIndex(m_pKeySet[KEYSET_BACKWARD].uCode));
 
 	return 1;
 }
@@ -160,30 +140,25 @@ int CkeySetDlg::getKey()
 	if (m_pKeySet == NULL)
 		return 0;
 
-	m_pKeySet[0].bCtrl = ((CButton*)GetDlgItem(IDC_CHECK_CTRL_FRESH))->GetCheck();
-	m_pKeySet[0].bShift = ((CButton*)GetDlgItem(IDC_CHECK_SHIFT_FRESH))->GetCheck();
-	m_pKeySet[0].bAlt = ((CButton*)GetDlgItem(IDC_CHECK_ALT_FRESH))->GetCheck();
-	m_pKeySet[0].uCode = vCode[((CComboBox*)GetDlgItem(IDC_COMBO_FRESH))->GetCurSel()];
+	m_pKeySet[KEYSET_BEGIN].bCtrl = ((CButton*)GetDlgItem(IDC_CHECK_CTRL_BEGIN))->GetCheck();
+	m_pKeySet[KEYSET_BEGIN].bShift = ((CButton*)GetDlgItem(IDC_CHECK_SHIFT_BEGIN))->GetCheck();
+	m_pKeySet[KEYSET_BEGIN].bAlt = ((CButton*)GetDlgItem(IDC_CHECK_ALT_BEGIN))->GetCheck();
+	m_pKeySet[KEYSET_BEGIN].uCode = vCode[((CComboBox*)GetDlgItem(IDC_COMBO_BEGIN))->GetCurSel()];
 
-	m_pKeySet[1].bCtrl = ((CButton*)GetDlgItem(IDC_CHECK_CTRL_BEGIN))->GetCheck();
-	m_pKeySet[1].bShift = ((CButton*)GetDlgItem(IDC_CHECK_SHIFT_BEGIN))->GetCheck();
-	m_pKeySet[1].bAlt = ((CButton*)GetDlgItem(IDC_CHECK_ALT_BEGIN))->GetCheck();
-	m_pKeySet[1].uCode = vCode[((CComboBox*)GetDlgItem(IDC_COMBO_BEGIN))->GetCurSel()];
+	m_pKeySet[KEYSET_STOP].bCtrl = ((CButton*)GetDlgItem(IDC_CHECK_CTRL_STOP))->GetCheck();
+	m_pKeySet[KEYSET_STOP].bShift = ((CButton*)GetDlgItem(IDC_CHECK_SHIFT_STOP))->GetCheck();
+	m_pKeySet[KEYSET_STOP].bAlt = ((CButton*)GetDlgItem(IDC_CHECK_ALT_STOP))->GetCheck();
+	m_pKeySet[KEYSET_STOP].uCode = vCode[((CComboBox*)GetDlgItem(IDC_COMBO_STOP))->GetCurSel()];
 
-	m_pKeySet[2].bCtrl = ((CButton*)GetDlgItem(IDC_CHECK_CTRL_STOP))->GetCheck();
-	m_pKeySet[2].bShift = ((CButton*)GetDlgItem(IDC_CHECK_SHIFT_STOP))->GetCheck();
-	m_pKeySet[2].bAlt = ((CButton*)GetDlgItem(IDC_CHECK_ALT_STOP))->GetCheck();
-	m_pKeySet[2].uCode = vCode[((CComboBox*)GetDlgItem(IDC_COMBO_STOP))->GetCurSel()];
+	m_pKeySet[KEYSET_FORWARD].bCtrl = ((CButton*)GetDlgItem(IDC_CHECK_CTRL_FORWARD))->GetCheck();
+	m_pKeySet[KEYSET_FORWARD].bShift = ((CButton*)GetDlgItem(IDC_CHECK_SHIFT_FORWARD))->GetCheck();
+	m_pKeySet[KEYSET_FORWARD].bAlt = ((CButton*)GetDlgItem(IDC_CHECK_ALT_FORWARD))->GetCheck();
+	m_pKeySet[KEYSET_FORWARD].uCode = vCode[((CComboBox*)GetDlgItem(IDC_COMBO_FORWARD))->GetCurSel()];
 
-	m_pKeySet[3].bCtrl = ((CButton*)GetDlgItem(IDC_CHECK_CTRL_FORWARD))->GetCheck();
-	m_pKeySet[3].bShift = ((CButton*)GetDlgItem(IDC_CHECK_SHIFT_FORWARD))->GetCheck();
-	m_pKeySet[3].bAlt = ((CButton*)GetDlgItem(IDC_CHECK_ALT_FORWARD))->GetCheck();
-	m_pKeySet[3].uCode = vCode[((CComboBox*)GetDlgItem(IDC_COMBO_FORWARD))->GetCurSel()];
-
-	m_pKeySet[4].bCtrl = ((CButton*)GetDlgItem(IDC_CHECK_CTRL_BACKWARD))->GetCheck();
-	m_pKeySet[4].bShift = ((CButton*)GetDlgItem(IDC_CHECK_SHIFT_BACKWARD))->GetCheck();
-	m_pKeySet[4].bAlt = ((CButton*)GetDlgItem(IDC_CHECK_ALT_BACKWARD))->GetCheck();
-	m_pKeySet[4].uCode = vCode[((CComboBox*)GetDlgItem(IDC_COMBO_BACKWARD))->GetCurSel()];
+	m_pKeySet[KEYSET_BACKWARD].bCtrl = ((CButton*)GetDlgItem(IDC_CHECK_CTRL_BACKWARD))->GetCheck();
+	m_pKeySet[KEYSET_BACKWARD].bShift = ((CButton*)GetDlgItem(IDC_CHECK_SHIFT_BACKWARD))->GetCheck();
+	m_pKeySet[KEYSET_BACKWARD].bAlt = ((CButton*)GetDlgItem(IDC_CHECK_ALT_BACKWARD))->GetCheck();
+	m_pKeySet[KEYSET_BACKWARD].uCode = vCode[((CComboBox*)GetDlgItem(IDC_COMBO_BACKWARD))->GetCurSel()];
 
 	return 1;
 }
@@ -191,10 +166,6 @@ int CkeySetDlg::getKey()
 void CkeySetDlg::initCombox()
 {
 	CComboBox* p = 0;
-
-	p = (CComboBox*)GetDlgItem(IDC_COMBO_FRESH);
-	for (int i=0; i<54; i++)
-		p->AddString(vKey[i]);
 
 	p = (CComboBox*)GetDlgItem(IDC_COMBO_BEGIN);
 	for (int i=0; i<54; i++)

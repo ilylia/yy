@@ -3,6 +3,14 @@
 #include "resource.h"
 
 
+enum KEY_TYPE
+{
+	KEYSET_BEGIN = 0, //开始
+	KEYSET_STOP, //停止
+	KEYSET_FORWARD, //快进
+	KEYSET_BACKWARD //快退
+};
+
 struct SKeySet
 {
 	SKeySet()
@@ -51,11 +59,6 @@ public:
 public:
 // 	BOOL m_bUseKey;
 	SKeySet* m_pKeySet;
-// 	CString m_cFresh;
-// 	CString m_cBegin;
-// 	CString m_cStop;
-// 	CString m_cForward;
-// 	CString m_cBackward;
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持

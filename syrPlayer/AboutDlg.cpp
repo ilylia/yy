@@ -15,6 +15,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LINK_8095, m_L8095);
 	DDX_Control(pDX, IDC_LINK_ZIMUZU, m_Lzimuzu);
 	DDX_Control(pDX, IDC_STATIC_VER, m_ver);
+	DDX_Control(pDX, IDC_STATIC_BINTIME, m_bintime);
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialog)
@@ -35,8 +36,9 @@ BOOL CAboutDlg::OnInitDialog()
 
 	CString str = APP_NAME;
 	str += APP_VERSION;
-	str += APP_BINTIME;
 	m_ver.SetWindowText(str);
+
+	m_bintime.SetWindowText(APP_BINTIME);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
