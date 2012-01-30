@@ -17,6 +17,19 @@ struct SYYPos
 	POINT m_pos;		// 窗口焦点位置（主界面为昵称所在位置，频道界面为左下角昵称）
 	int m_idx;			// 麦序
 	CString m_sNick;	// 昵称
+	//HBITMAP m_bmp;		// 昵称截图
+	int m_img;			// 昵称截图
+
+	//SYYPos():m_hWnd(NULL), m_pos(0,0), m_idx(0), m_bmp(NULL)
+	//{
+	//}
+	//~SYYPos()
+	//{
+	//	if (m_bmp != NULL)
+	//	{
+	//		::DeleteObject(m_bmp);
+	//	}
+	//}
 };
 
 // CsyrPlayerDlg 对话框
@@ -61,6 +74,7 @@ protected:
 	CMyPic m_pic;
 
 	CListCtrlEditable m_elYY;	// YY列表
+	CImageList m_imgList;		// 截图
 	CEdit m_editFilter;			// 过滤关键词
 	
 	CTreeCtrl m_treeLrcCon;		// 歌词内容
