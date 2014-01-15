@@ -343,10 +343,4 @@
 			>
 		</File>
 	</Files>
-	<Globals>
-		<Global
-			Name="RESOURCE_FILE"
-			Value="\workplace\Visual Studio 2005\Projects\YYnick\YYnick\YYnick.rc"
-		/>
-	</Globals>
 </VisualStudioProject>

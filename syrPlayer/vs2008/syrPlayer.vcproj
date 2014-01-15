@@ -359,10 +359,4 @@
 			</File>
 		</Filter>
 	</Files>
-	<Globals>
-		<Global
-			Name="RESOURCE_FILE"
-			Value="\doing\YYnick\syrPlayer\syrPlayer.rc"
-		/>
-	</Globals>
 </VisualStudioProject>

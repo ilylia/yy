@@ -386,15 +386,5 @@
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath="..\..\syrPlayer\vs2008\syrPlayer.vcproj"
-			>
-		</File>
 	</Files>
-	<Globals>
-		<Global
-			Name="RESOURCE_FILE"
-			Value="\workplace\Visual Studio 2005\Projects\YYnick\syrMaker\syrMaker.rc"
-		/>
-	</Globals>
 </VisualStudioProject>
