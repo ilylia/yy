@@ -11,18 +11,28 @@
 #include "Styler.h"
 #include "keySetDlg.h"
 
+enum TYYWndType
+{
+	EYYWndNull = 0,
+	EYYWndMain,
+	EYYWndOption
+};
+
 struct SYYPos
 {
 	HWND m_hWnd;		// 窗口句柄
 	POINT m_pos;		// 窗口焦点位置（主界面为昵称所在位置，频道界面为左下角昵称）
+	POINT m_applyPos;	// 窗口应用位置
 	int m_idx;			// 麦序
 	CString m_sNick;	// 昵称
 	//HBITMAP m_bmp;		// 昵称截图
 	int m_img;			// 昵称截图
 
-	//SYYPos():m_hWnd(NULL), m_pos(0,0), m_idx(0), m_bmp(NULL)
-	//{
-	//}
+	SYYPos():m_hWnd(NULL), m_idx(0), m_img(0)
+	{
+		m_pos.x = 0, m_pos.y = 0;
+		m_applyPos.x = 0, m_applyPos.y = 0;
+	}
 	//~SYYPos()
 	//{
 	//	if (m_bmp != NULL)
@@ -30,6 +40,20 @@ struct SYYPos
 	//		::DeleteObject(m_bmp);
 	//	}
 	//}
+};
+
+struct SPosSet
+{
+	int m_nickX;	//昵称位置
+	int m_nickY;
+	int m_nickW;
+	int m_nickH;
+	int m_applyX;	//应用位置
+	int m_applyY;
+
+	SPosSet() : m_nickX(0), m_nickY(0), m_nickW(0), m_nickH(0), m_applyX(0), m_applyY(0)
+	{
+	}
 };
 
 // CsyrPlayerDlg 对话框
@@ -43,28 +67,31 @@ public:
 // 对话框数据
 	enum { IDD = IDD_YYNICK_DIALOG };
 
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
 
 // 实现
 public:
 	int changeHandle(HANDLE hWnd);		// 获取yy
 	int modifyYY(int idx, int item, CString val);
-	void setYYtoMap(SYYPos syp, int idx);
-
-	int initList(CString strLrcFile);	// 初始化歌词内容树
-	int initList(int idx);				// 初始化对应idx序号的YY的字幕
 
 	int startLRC();
 	int pauseLRC();
 	int stopLRC();
 
+	void regHotKey();
+	void unregHotKey();
+
+private:
+	void setYYtoMap(SYYPos syp, int idx);
+
+	int initList(CString strLrcFile);	// 初始化歌词内容树
+	int initList(int idx);				// 初始化对应idx序号的YY的字幕
+
 	int delStrBlank(CString& str);
 	int setNick(int idx, CString nick);	// 改idx号YY的昵称，实现字幕
 	int setNick();
-
-	void regHotKey();
-	void unregHotKey();
+	void SendNick(SYYPos& syp, CString str);
 
 	bool readConfig();					// 读取设置
 	bool saveConfig();					// 保存设置
@@ -96,6 +123,11 @@ protected:
 	vector<CString> m_vFilter;
 	BOOL m_bUseKey;				// 是否使用快捷键
 	SKeySet m_key[4];			// 快捷键
+	SPosSet m_mainPosSet;		// 主界面
+	SPosSet m_optionPosSet;		// 我的设置界面
+
+	TYYWndType m_eYYWndType;
+	SPosSet m_posSet;			// 位置设置
 
 public:
 	DECLARE_MESSAGE_MAP()

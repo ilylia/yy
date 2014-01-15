@@ -10,10 +10,18 @@
         <value>编辑</value>
         <value>com</value>
     </Filter>
-    <Key use="1">
+    <Key use="0">
         <Begin ctrl="1" shift="0" alt="0" code="80" />
         <Stop ctrl="1" shift="0" alt="0" code="76" />
         <Forward ctrl="1" shift="0" alt="0" code="39" />
         <Backward ctrl="1" shift="0" alt="0" code="37" />
     </Key>
+    <Main>
+        <NickPos left="126" top="33" width="150" height="18" />
+        <ApplyPos left="0" top="0" />
+    </Main>
+    <Option>
+        <NickPos left="218" top="112" width="200" height="20" />
+        <ApplyPos left="540" top="446" />
+    </Option>
 </Config>

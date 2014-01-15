@@ -6,9 +6,9 @@
 
 // CAboutDlg 对话框
 
-#define APP_NAME _T("YY花式字幕器 for YY3.9以上版本 ")
-#define APP_VERSION _T("v1.1")
-#define APP_BINTIME _T("2012.01.31 02:00")
+#define APP_NAME _T("YY花式字幕器 for YY6以上版本 ")
+#define APP_VERSION _T("v1.2")
+#define APP_BINTIME _T("2014.01.15 20:00")
 
 class CAboutDlg : public CDialog
 {
