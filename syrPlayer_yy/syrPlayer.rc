@@ -1,0 +1,194 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(简体，中国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\syrPlayer.rc2""  // 非 Microsoft Visual C++ 编辑的资源\r\n"
+    "#include ""afxres.rc""     // 标准组件\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\syrPlayer.ico"
+IDI_ICON1               ICON                    "res\\drag.ico"
+IDI_ICON2               ICON                    "res\\drag2.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 235, 153
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 syrPlayer"
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,9,12,20,20
+    LTEXT           "YY花式字幕器 for YY3.9 v0.9.0 2011.07.24 17:00",IDC_STATIC_VER,40,10,189,8,SS_NOPREFIX
+    DEFPUSHBUTTON   "确定",IDOK,93,129,50,16,WS_GROUP
+    LTEXT           "夕四（6968677|8095）于2011.07.24 17:00制作",IDC_STATIC,40,25,170,8
+    LTEXT           "2011.07.24 17:00",IDC_STATIC_BINTIME,128,25,64,8
+    LTEXT           "感谢",IDC_STATIC,28,46,185,8
+    LTEXT           "小葵，促使我动手",IDC_STATIC,44,59,152,8
+    LTEXT           "花花，提供图标等资源",IDC_STATIC,44,74,152,8
+    LTEXT           "柒柒、风铃、雨荷、749、小五、柠檬，",IDC_STATIC,44,89,152,8
+    LTEXT           "以及花弄影字幕组的各位成员等，帮忙测试",IDC_STATIC,44,104,152,8
+    LTEXT           "6968677",IDC_LINK_69120,64,25,21,8
+    LTEXT           "8095",IDC_LINK_8095,96,25,17,8
+    LTEXT           "花弄影字幕组",IDC_LINK_ZIMUZU,60,104,48,8
+    LTEXT           "感谢您的使用~",IDC_STATIC,163,119,50,8
+END
+
+IDD_YYNICK_DIALOG DIALOGEX 0, 0, 199, 298
+STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOPMOST | WS_EX_ACCEPTFILES | WS_EX_APPWINDOW
+CAPTION "syrPlayer"
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    GROUPBOX        "字幕",IDC_STATIC,5,7,188,286
+    CONTROL         "",IDC_SLIDER_TIME,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,11,42,175,15
+    PUSHBUTTON      "开始",IDC_BTN_BEGIN,15,23,26,14
+    PUSHBUTTON      "停止",IDC_BTN_STOP,47,23,26,14
+    PUSHBUTTON      "快进",IDC_BTN_FORWARD,80,23,26,14
+    PUSHBUTTON      "快退",IDC_BTN_BACKWARD,112,23,26,14
+    CONTROL         "00:00",IDC_STATIC_TIME,"Static",SS_LEFTNOWORDWRAP | SS_CENTERIMAGE | WS_GROUP,143,18,44,23
+    CONTROL         "",IDC_TREE_LRCCON,"SysTreeView32",TVS_SHOWSELALWAYS | TVS_FULLROWSELECT | WS_BORDER | WS_HSCROLL | WS_TABSTOP,15,62,168,222
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 0,0,0,0
+ PRODUCTVERSION 0,0,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_CURSOR1             CURSOR                  "res\\eye.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 151
+    END
+
+    IDD_YYNICK_DIALOG, DIALOG
+    BEGIN
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_ABOUTBOX            "关于 syrPlayer(&A)..."
+END
+
+#endif    // 中文(简体，中国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\syrPlayer.rc2"  // 非 Microsoft Visual C++ 编辑的资源
+#include "afxres.rc"     // 标准组件
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
