@@ -8,7 +8,7 @@
 
 #define APP_NAME _T("»¨ÅªÓ°×ÖÄ» ")
 #define APP_VERSION _T("v2.0")
-#define APP_BINTIME _T("2014.01.20 20:00")
+#define APP_BINTIME _T("2014.01.21 20:00")
 
 class CAboutDlg : public CDialog
 {

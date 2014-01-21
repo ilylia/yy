@@ -74,7 +74,6 @@ private:
 
 protected:
 	HICON m_hIcon;
-	CMyPic m_pic;
 
 	CListCtrlEditable m_elYY;	// YY列表
 	CEdit m_editFilter;			// 过滤关键词
@@ -114,6 +113,7 @@ public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 
 	afx_msg void OnLvnItemchangedListYy(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnClickedButtonRefresh();
 	afx_msg void OnBnClickedButtonUp();
 	afx_msg void OnBnClickedButtonDown();
 	afx_msg void OnBnClickedButtonDel();

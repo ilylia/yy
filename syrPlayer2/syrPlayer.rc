@@ -63,8 +63,6 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDR_MAINFRAME           ICON                    "res\\syrPlayer.ico"
-IDI_ICON1               ICON                    "res\\drag.ico"
-IDI_ICON2               ICON                    "res\\drag2.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -99,12 +97,10 @@ CAPTION "syrPlayer"
 FONT 9, "宋体", 0, 0, 0x1
 BEGIN
     GROUPBOX        "YY号",IDC_STATIC,5,8,160,184
-    LTEXT           "请拖动此按钮到YY频道窗口上→",IDC_STATIC,17,23,113,8
-    ICON            IDI_ICON1,IDC_PIC,134,16,20,20,SS_NOTIFY
-    CONTROL         "",IDC_LIST_YY,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,11,39,131,145
-    PUSHBUTTON      "上移",IDC_BUTTON_UP,146,56,16,26,BS_MULTILINE
-    PUSHBUTTON      "下移",IDC_BUTTON_DOWN,146,97,16,26,BS_MULTILINE
-    PUSHBUTTON      "删除",IDC_BUTTON_DEL,146,139,16,26,BS_MULTILINE
+    CONTROL         "",IDC_LIST_YY,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,11,21,131,163
+    PUSHBUTTON      "上移",IDC_BUTTON_UP,146,65,16,26,BS_MULTILINE
+    PUSHBUTTON      "下移",IDC_BUTTON_DOWN,146,106,16,26,BS_MULTILINE
+    PUSHBUTTON      "删除",IDC_BUTTON_DEL,146,148,16,26,BS_MULTILINE
     LTEXT           "过滤关键词：",IDC_STATIC,12,204,49,8
     EDITTEXT        IDC_EDIT_FILTER,30,219,121,45,ES_MULTILINE | ES_NOHIDESEL | ES_WANTRETURN | WS_VSCROLL
     CONTROL         "",IDC_CHECK_USEKEY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,277,8,10
@@ -118,6 +114,7 @@ BEGIN
     PUSHBUTTON      "快退",IDC_BTN_BACKWARD,277,23,26,14
     CONTROL         "00:00",IDC_STATIC_TIME,"Static",SS_LEFTNOWORDWRAP | SS_CENTERIMAGE | WS_GROUP,308,18,44,23
     CONTROL         "",IDC_TREE_LRCCON,"SysTreeView32",TVS_SHOWSELALWAYS | TVS_FULLROWSELECT | WS_BORDER | WS_HSCROLL | WS_TABSTOP,180,62,168,222
+    PUSHBUTTON      "刷新",IDC_BUTTON_REFRESH,146,29,16,26,BS_MULTILINE
 END
 
 IDD_DIALOG_KEYSET DIALOGEX 0, 0, 227, 124
@@ -171,13 +168,6 @@ VS_VERSION_INFO VERSIONINFO
 BEGIN
 END
 
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Cursor
-//
-
-IDC_CURSOR1             CURSOR                  "res\\eye.cur"
 
 /////////////////////////////////////////////////////////////////////////////
 //

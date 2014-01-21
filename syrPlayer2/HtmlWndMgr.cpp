@@ -67,12 +67,11 @@ void CHtmlWndMgr::Refresh()
 {
 	map<CComPtr<IDispatchEx>, SHtmlScriptData> mapHtmlWnd;
 	CString winClass = _T("QWidget");
-	CString winTitle = _T("»¨ÅªÓ°×ÖÄ»");
 	CString ieClass = _T("Internet Explorer_Server");
 	HWND hWndQW = NULL;
 	do
 	{
-		hWndQW = ::FindWindowEx(NULL, hWndQW, winClass, winTitle);
+		hWndQW = ::FindWindowEx(NULL, hWndQW, winClass, NULL);
 		if (hWndQW == NULL)
 		{
 			break;
@@ -150,10 +149,56 @@ CString CHtmlWndMgr::GetUserNick(unsigned int unID)
 		DISPPARAMS dpNoArgs = {NULL, NULL, 0, 0};
 		HRESULT hr = pScData->pScriptEx->InvokeEx(pScData->lGetName, LOCALE_SYSTEM_DEFAULT, DISPATCH_METHOD,
 			&dpNoArgs, &ret, NULL, NULL);
-		if (SUCCEEDED(hr))
+		if (FAILED(hr))
 		{
-			nick = ret.bstrVal;
+			return nick;
 		}
+
+		CComPtr<IDispatch> pRet = ret.pdispVal;
+		if (pRet == NULL)
+		{
+			return nick;
+		}
+
+		CComPtr<IDispatchEx> pRetEx = NULL;
+		hr = pRet->QueryInterface(IID_IDispatchEx, (void**)&pRetEx);
+		if (FAILED(hr) || pRetEx == NULL)
+		{
+			return nick;
+		}
+
+		DISPID dispid = DISPID_STARTENUM;
+		do
+		{
+			hr = pRetEx->GetNextDispID(fdexEnumAll, dispid, &dispid);
+			if (FAILED(hr))
+			{
+				break;
+			}
+			BSTR bstrName = NULL;
+			hr = pRetEx->GetMemberName(dispid, &bstrName);
+			if (FAILED(hr))
+			{
+				return nick;
+			}
+			int r = wcscmp(bstrName, OLESTR("name"));
+			SysFreeString(bstrName);
+			bstrName = NULL;
+			if (r == 0)
+			{
+				break;
+			}
+		} while (hr == NOERROR);
+
+		VARIANT ret_name;
+		hr = pRetEx->InvokeEx(dispid, LOCALE_SYSTEM_DEFAULT, DISPATCH_PROPERTYGET,
+			&dpNoArgs, &ret_name, NULL, NULL);
+		if (FAILED(hr))
+		{
+			return nick;
+		}
+
+		nick = ret_name.bstrVal;
 	}
 	//catch (CMemoryException* e)
 	//{
@@ -164,7 +209,7 @@ CString CHtmlWndMgr::GetUserNick(unsigned int unID)
 		//MessageBox
 		//bad
 		DelYY(unID);
-		return FALSE;
+		return nick;
 	}
 
 	return nick;
@@ -187,9 +232,9 @@ BOOL CHtmlWndMgr::Rename(unsigned int unID, CString nick)
 		HRESULT hr = pScData->pScriptEx->InvokeEx(pScData->lSetName, LOCALE_SYSTEM_DEFAULT, DISPATCH_METHOD,
 			&dpArgs, NULL, NULL, NULL);
 		::SysFreeString( arg.bstrVal );
-		if (SUCCEEDED(hr))
+		if (FAILED(hr))
 		{
-			return TRUE;
+			return FALSE;
 		}
 	}
 	//catch (CMemoryException* e)
@@ -231,30 +276,89 @@ BOOL CHtmlWndMgr::GetHtmlWnd(HWND hwndIE, SHtmlScriptData& stData)
 		return FALSE;
 	}
 
-	CComPtr<IDispatchEx> pScriptEx = NULL;
-	hres = pScript->QueryInterface(IID_IDispatchEx, (void**)&pScriptEx);
-	if (FAILED(hres) || pScriptEx == NULL)
+	CComPtr<IDispatchEx> pScEx = NULL;
+	hres = pScript->QueryInterface(IID_IDispatchEx, (void**)&pScEx);
+	if (FAILED(hres) || pScEx == NULL)
 	{
 		return FALSE;
 	}
 
-	CComBSTR bstrMember(_T("setName"));
+	CComBSTR bstrMember(_T("yy"));
+	DISPID dispid_yy = 0;
+	hres = pScEx->GetDispID(bstrMember, fdexNameCaseSensitive, &dispid_yy);
+	if (FAILED(hres))
+	{
+		return FALSE;
+	}
+
+	VARIANT ret_yy;
+	DISPPARAMS dispparamsNoArgs = {NULL, NULL, 0, 0};
+	hres = pScEx->InvokeEx(dispid_yy, LOCALE_SYSTEM_DEFAULT, DISPATCH_PROPERTYGET,
+		&dispparamsNoArgs, &ret_yy, NULL, NULL);
+	if (FAILED(hres))
+	{
+		return FALSE;
+	}
+
+	CComPtr<IDispatch> pScYY = ret_yy.pdispVal;
+	if (pScYY == NULL)
+	{
+		return FALSE;
+	}
+
+	CComPtr<IDispatchEx> pScYYEx = NULL;
+	hres = pScYY->QueryInterface(IID_IDispatchEx, (void**)&pScYYEx);
+	if (FAILED(hres))
+	{
+		return FALSE;
+	}
+
+	bstrMember = _T("user");
+	DISPID dispid_user = 0;
+	hres = pScYYEx->GetDispID(bstrMember, fdexNameCaseSensitive, &dispid_user);
+	if (FAILED(hres))
+	{
+		return FALSE;
+	}
+
+	VARIANT ret_user;
+	hres = pScYYEx->InvokeEx(dispid_user, LOCALE_SYSTEM_DEFAULT, DISPATCH_PROPERTYGET,
+		&dispparamsNoArgs, &ret_user, NULL, NULL);
+	if (FAILED(hres))
+	{
+		return FALSE;
+	}
+
+	CComPtr<IDispatch> pScUser = ret_user.pdispVal;
+	if (pScUser == NULL)
+	{
+		return FALSE;
+	}
+
+	CComPtr<IDispatchEx> pScUserEx = NULL;
+	hres = pScUser->QueryInterface(IID_IDispatchEx, (void**)&pScUserEx);
+	if (FAILED(hres))
+	{
+		return FALSE;
+	}
+
+	bstrMember = _T("rename");
 	DISPID dispidSet = 0;
-	hres = pScriptEx->GetDispID(bstrMember, fdexNameCaseSensitive, &dispidSet);
+	hres = pScUserEx->GetDispID(bstrMember, fdexNameCaseSensitive, &dispidSet);
 	if (FAILED(hres))
 	{
 		return FALSE;
 	}
 
-	bstrMember = _T("getName");
+	bstrMember = _T("getCurrentUserInfo");
 	DISPID dispidGet = 0;
-	hres = pScriptEx->GetDispID(bstrMember, fdexNameCaseSensitive, &dispidGet);
+	hres = pScUserEx->GetDispID(bstrMember, fdexNameCaseSensitive, &dispidGet);
 	if (FAILED(hres))
 	{
 		return FALSE;
 	}
 
-	stData.pScriptEx = pScriptEx;
+	stData.pScriptEx = pScUserEx;
 	stData.lSetName = dispidSet;
 	stData.lGetName = dispidGet;
 
