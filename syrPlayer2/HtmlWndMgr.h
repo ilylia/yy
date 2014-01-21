@@ -13,11 +13,11 @@ class CHtmlWndMgr
 {
 	struct SHtmlScriptData
 	{
-		CComPtr<IDispatch> pScript;
+		CComPtr<IDispatchEx> pScriptEx;
 		DISPID lSetName;
 		DISPID lGetName;
 
-		SHtmlScriptData() : pScript(NULL), lSetName(NULL), lGetName(NULL)
+		SHtmlScriptData() : pScriptEx(NULL), lSetName(NULL), lGetName(NULL)
 		{
 		}
 	};
@@ -50,7 +50,7 @@ private:
 	LPFNOBJECTFROMLRESULT m_pfObjectFromLresult;
 	UINT m_unMsg;
 
-	map<CComPtr<IDispatch>, unsigned int> m_mapYYptr2id;
+	map<CComPtr<IDispatchEx>, unsigned int> m_mapYYptr2id;
 	map<unsigned int, SHtmlScriptData> m_mapYYid2ptr;
 	unsigned int m_unLastID;
 
