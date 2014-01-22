@@ -16,8 +16,10 @@ class CHtmlWndMgr
 		CComPtr<IDispatchEx> pScriptEx;
 		DISPID lSetName;
 		DISPID lGetName;
+		UINT imId;
+		map<CString, VARIANT> userInfo;
 
-		SHtmlScriptData() : pScriptEx(NULL), lSetName(NULL), lGetName(NULL)
+		SHtmlScriptData() : pScriptEx(NULL), lSetName(0), lGetName(0), imId(0)
 		{
 		}
 	};
@@ -34,9 +36,10 @@ public:
 	void Release();
 
 	void Refresh();
+	void OnDelYY(unsigned int unID);
 
 public:
-	CString GetUserNick(unsigned int unID);
+	BOOL GetUserInfo(unsigned int unID, map<CString, VARIANT>& userInfo);
 	BOOL Rename(unsigned int unID, CString nick);
 
 private:
@@ -44,15 +47,14 @@ private:
 	unsigned int AddYY(SHtmlScriptData& stData);
 	BOOL DelYY(unsigned int unID);
 	SHtmlScriptData* GetPtrByID(unsigned int unID);
+	BOOL exeWithNoArg(CComPtr<IDispatchEx> pScEx, DISPID dispid, map<CString, VARIANT>& ret);
 
 private:
 	HINSTANCE m_hinst;
 	LPFNOBJECTFROMLRESULT m_pfObjectFromLresult;
 	UINT m_unMsg;
 
-	map<CComPtr<IDispatchEx>, unsigned int> m_mapYYptr2id;
 	map<unsigned int, SHtmlScriptData> m_mapYYid2ptr;
-	unsigned int m_unLastID;
 
 	CsyrPlayerDlg* m_pDlg;
 };

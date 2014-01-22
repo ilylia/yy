@@ -28,7 +28,6 @@ CHtmlWndMgr::CHtmlWndMgr(void)
 	: m_hinst(NULL)
 	, m_pfObjectFromLresult(NULL)
 	, m_unMsg(0)
-	, m_unLastID(0)
 {
 }
 
@@ -65,7 +64,7 @@ void CHtmlWndMgr::Release()
 
 void CHtmlWndMgr::Refresh()
 {
-	map<CComPtr<IDispatchEx>, SHtmlScriptData> mapHtmlWnd;
+	map<unsigned int, SHtmlScriptData> mapHtmlWnd;
 	CString winClass = _T("QWidget");
 	CString ieClass = _T("Internet Explorer_Server");
 	HWND hWndQW = NULL;
@@ -102,7 +101,7 @@ void CHtmlWndMgr::Refresh()
 					SHtmlScriptData stData;
 					if (GetHtmlWnd(hWndIE, stData))
 					{
-						mapHtmlWnd[stData.pScriptEx] = stData;
+						mapHtmlWnd[stData.imId] = stData;
 					}
 					break;
 				}
@@ -113,106 +112,54 @@ void CHtmlWndMgr::Refresh()
 		} while (TRUE);
 	} while (hWndQW != NULL);
 
-	for (map<CComPtr<IDispatchEx>, SHtmlScriptData>::iterator itr = mapHtmlWnd.begin();
+	for (map<unsigned int, SHtmlScriptData>::iterator itr = mapHtmlWnd.begin();
 		itr != mapHtmlWnd.end(); ++itr)
 	{
-		if (m_mapYYptr2id.find(itr->first) == m_mapYYptr2id.end())
-		{
-			//add
-			AddYY(itr->second);
-		}
+		//if (m_mapYYid2ptr.find(itr->second.imId) == m_mapYYid2ptr.end())
+		//{
+		//add
+		AddYY(itr->second);
+		//}
 	}
-	for (map<CComPtr<IDispatchEx>, unsigned int>::iterator itr = m_mapYYptr2id.begin();
-		itr != m_mapYYptr2id.end(); ++itr)
+	vector<unsigned int> vtNeedDel;
+	for (map<unsigned int, SHtmlScriptData>::iterator itr = m_mapYYid2ptr.begin();
+		itr != m_mapYYid2ptr.end(); ++itr)
 	{
 		if (mapHtmlWnd.find(itr->first) == mapHtmlWnd.end())
 		{
 			//del
-			DelYY(itr->second);
+			vtNeedDel.push_back(itr->first);
 		}
+	}
+	for (vector<unsigned int>::iterator itr = vtNeedDel.begin();
+		itr != vtNeedDel.end(); ++itr)
+	{
+		DelYY(*itr);
 	}
 }
 
-CString CHtmlWndMgr::GetUserNick(unsigned int unID)
+void CHtmlWndMgr::OnDelYY(unsigned int unID)
 {
-	CString nick;
+	DelYY(unID);
+}
 
+BOOL CHtmlWndMgr::GetUserInfo(unsigned int unID, map<CString, VARIANT>& userInfo)
+{
 	SHtmlScriptData* pScData = GetPtrByID(unID);
 	if (pScData == NULL)
 	{
-		return nick;
+		return FALSE;
 	}
 
-	try
-	{
-		VARIANT ret;
-		DISPPARAMS dpNoArgs = {NULL, NULL, 0, 0};
-		HRESULT hr = pScData->pScriptEx->InvokeEx(pScData->lGetName, LOCALE_SYSTEM_DEFAULT, DISPATCH_METHOD,
-			&dpNoArgs, &ret, NULL, NULL);
-		if (FAILED(hr))
-		{
-			return nick;
-		}
-
-		CComPtr<IDispatch> pRet = ret.pdispVal;
-		if (pRet == NULL)
-		{
-			return nick;
-		}
-
-		CComPtr<IDispatchEx> pRetEx = NULL;
-		hr = pRet->QueryInterface(IID_IDispatchEx, (void**)&pRetEx);
-		if (FAILED(hr) || pRetEx == NULL)
-		{
-			return nick;
-		}
-
-		DISPID dispid = DISPID_STARTENUM;
-		do
-		{
-			hr = pRetEx->GetNextDispID(fdexEnumAll, dispid, &dispid);
-			if (FAILED(hr))
-			{
-				break;
-			}
-			BSTR bstrName = NULL;
-			hr = pRetEx->GetMemberName(dispid, &bstrName);
-			if (FAILED(hr))
-			{
-				return nick;
-			}
-			int r = wcscmp(bstrName, OLESTR("name"));
-			SysFreeString(bstrName);
-			bstrName = NULL;
-			if (r == 0)
-			{
-				break;
-			}
-		} while (hr == NOERROR);
-
-		VARIANT ret_name;
-		hr = pRetEx->InvokeEx(dispid, LOCALE_SYSTEM_DEFAULT, DISPATCH_PROPERTYGET,
-			&dpNoArgs, &ret_name, NULL, NULL);
-		if (FAILED(hr))
-		{
-			return nick;
-		}
-
-		nick = ret_name.bstrVal;
-	}
-	//catch (CMemoryException* e)
+	userInfo = pScData->userInfo;
+	//BOOL br = exeWithNoArg(pScData->pScriptEx, pScData->lGetName, userInfo);
+	//if (!br)
 	//{
-	//	
+	//	DelYY(unID);
+	//	return FALSE;
 	//}
-	catch (CException* /*e*/)
-	{
-		//MessageBox
-		//bad
-		DelYY(unID);
-		return nick;
-	}
 
-	return nick;
+	return TRUE;
 }
 
 BOOL CHtmlWndMgr::Rename(unsigned int unID, CString nick)
@@ -358,9 +305,17 @@ BOOL CHtmlWndMgr::GetHtmlWnd(HWND hwndIE, SHtmlScriptData& stData)
 		return FALSE;
 	}
 
+	map<CString, VARIANT> userInfo;
+	if (!exeWithNoArg(pScUserEx, dispidGet, userInfo))
+	{
+		return FALSE;
+	}
+
 	stData.pScriptEx = pScUserEx;
 	stData.lSetName = dispidSet;
 	stData.lGetName = dispidGet;
+	stData.imId = userInfo[_T("imId")].uintVal;
+	stData.userInfo = userInfo;
 
 	return TRUE;
 }
@@ -372,16 +327,19 @@ unsigned int CHtmlWndMgr::AddYY(SHtmlScriptData& stData)
 		return 0;
 	}
 
-	if (m_mapYYptr2id.find(stData.pScriptEx) == m_mapYYptr2id.end())
+	if (m_mapYYid2ptr.find(stData.imId) == m_mapYYid2ptr.end())
 	{
-		unsigned int unNewID = ++m_unLastID;
-		m_mapYYptr2id[stData.pScriptEx] = unNewID;
-		m_mapYYid2ptr[unNewID] = stData;
-
-		m_pDlg->AddYY(unNewID);
+		m_mapYYid2ptr[stData.imId] = stData;
+		m_pDlg->AddYY(stData.imId);
+	}
+	else
+	{
+		m_mapYYid2ptr[stData.imId].pScriptEx = stData.pScriptEx;
+		m_mapYYid2ptr[stData.imId].lGetName = stData.lGetName;
+		m_mapYYid2ptr[stData.imId].lSetName = stData.lSetName;
 	}
 
-	return m_mapYYptr2id[stData.pScriptEx];
+	return stData.imId;
 }
 
 BOOL CHtmlWndMgr::DelYY(unsigned int unID)
@@ -389,9 +347,7 @@ BOOL CHtmlWndMgr::DelYY(unsigned int unID)
 	map<unsigned int, SHtmlScriptData>::iterator _find = m_mapYYid2ptr.find(unID);
 	if (_find != m_mapYYid2ptr.end())
 	{
-		m_mapYYptr2id.erase(_find->second.pScriptEx);
 		m_mapYYid2ptr.erase(_find);
-
 		m_pDlg->DelYY(unID);
 	}
 	return TRUE;
@@ -405,4 +361,75 @@ CHtmlWndMgr::SHtmlScriptData* CHtmlWndMgr::GetPtrByID(unsigned int unID)
 		return NULL;
 	}
 	return &_find->second;
+}
+
+BOOL CHtmlWndMgr::exeWithNoArg(CComPtr<IDispatchEx> pScEx, DISPID dispid, map<CString, VARIANT>& result)
+{
+	try
+	{
+		VARIANT ret;
+		DISPPARAMS dpNoArgs = {NULL, NULL, 0, 0};
+		HRESULT hr = pScEx->InvokeEx(dispid, LOCALE_SYSTEM_DEFAULT, DISPATCH_METHOD,
+			&dpNoArgs, &ret, NULL, NULL);
+		if (FAILED(hr))
+		{
+			return FALSE;
+		}
+
+		CComPtr<IDispatch> pRet = ret.pdispVal;
+		if (pRet == NULL)
+		{
+			return FALSE;
+		}
+
+		CComPtr<IDispatchEx> pRetEx = NULL;
+		hr = pRet->QueryInterface(IID_IDispatchEx, (void**)&pRetEx);
+		if (FAILED(hr) || pRetEx == NULL)
+		{
+			return FALSE;
+		}
+
+		DISPID dispid = DISPID_STARTENUM;
+		do
+		{
+			hr = pRetEx->GetNextDispID(fdexEnumAll, dispid, &dispid);
+			if (FAILED(hr))
+			{
+				break;
+			}
+			BSTR bstrName = NULL;
+			hr = pRetEx->GetMemberName(dispid, &bstrName);
+			if (FAILED(hr))
+			{
+				break;
+				//return FALSE;
+			}
+
+			VARIANT ret_val;
+			hr = pRetEx->InvokeEx(dispid, LOCALE_SYSTEM_DEFAULT, DISPATCH_PROPERTYGET,
+				&dpNoArgs, &ret_val, NULL, NULL);
+			if (FAILED(hr))
+			{
+				break;
+				//return FALSE;
+			}
+
+			result[bstrName] = ret_val;
+			SysFreeString(bstrName);
+			bstrName = NULL;
+		} while (hr == NOERROR);
+	}
+	//catch (CMemoryException* e)
+	//{
+	//	
+	//}
+	catch (CException* /*e*/)
+	{
+		//MessageBox
+		//bad
+		//DelYY(unID);
+		return FALSE;
+	}
+
+	return TRUE;
 }

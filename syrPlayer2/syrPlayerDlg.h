@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "MyPic.h"
 #include "ListCtrlEditable.h"
 #include "afxwin.h"
 #include "afxcmn.h"
@@ -21,11 +20,12 @@ enum TLrcType
 
 struct SYYPos
 {
-	unsigned int m_unID;
+	unsigned int m_imId;
 	int m_idx;			// ¬Û–Ú
 	CString m_sNick;	// Í«≥∆
+	CString m_sSign;
 
-	SYYPos() : m_unID(0), m_idx(0)
+	SYYPos() : m_imId(0), m_idx(0)
 	{
 	}
 };
