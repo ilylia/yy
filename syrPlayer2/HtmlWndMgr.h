@@ -4,6 +4,7 @@
 #include <atlbase.h>
 #include <oleacc.h>
 #include <comdef.h>
+#include <dispex.h>
 #include <map>
 using std::map;
 
