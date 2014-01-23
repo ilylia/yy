@@ -7,8 +7,8 @@
 // CAboutDlg 对话框
 
 #define APP_NAME _T("花弄影字幕 ")
-#define APP_VERSION _T("v2.0.1")
-#define APP_BINTIME _T("2014.01.23 13:00")
+#define APP_VERSION _T("v2.0.2")
+#define APP_BINTIME _T("2014.01.23 18:00")
 
 class CAboutDlg : public CDialog
 {
