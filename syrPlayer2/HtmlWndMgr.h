@@ -14,13 +14,14 @@ class CHtmlWndMgr
 {
 	struct SHtmlScriptData
 	{
+		HWND hWnd;
 		CComPtr<IDispatchEx> pScriptEx;
 		DISPID lSetName;
 		DISPID lGetName;
 		UINT imId;
 		map<CString, VARIANT> userInfo;
 
-		SHtmlScriptData() : pScriptEx(NULL), lSetName(0), lGetName(0), imId(0)
+		SHtmlScriptData() : hWnd(NULL), pScriptEx(NULL), lSetName(0), lGetName(0), imId(0)
 		{
 		}
 	};
@@ -37,25 +38,27 @@ public:
 	void Release();
 
 	void Refresh();
-	void OnDelYY(unsigned int unID);
+	BOOL ToggleYYAppVisible();
+
+	void OnDelYY(unsigned int imId);
 
 public:
-	BOOL GetUserInfo(unsigned int unID, map<CString, VARIANT>& userInfo);
-	BOOL Rename(unsigned int unID, CString nick);
+	BOOL GetUserInfo(unsigned int imId, map<CString, VARIANT>& userInfo);
+	BOOL Rename(unsigned int imId, CString nick);
 
 private:
-	BOOL GetHtmlWnd(HWND hwndIE, SHtmlScriptData& stData);
+	BOOL GetHtmlWnd(HWND hWndQW, HWND hwndIE, SHtmlScriptData& stData);
 	unsigned int AddYY(SHtmlScriptData& stData);
-	BOOL DelYY(unsigned int unID);
-	SHtmlScriptData* GetPtrByID(unsigned int unID);
+	BOOL DelYY(unsigned int imId);
+	SHtmlScriptData* GetPtrByID(unsigned int imId);
 	BOOL exeWithNoArg(CComPtr<IDispatchEx> pScEx, DISPID dispid, map<CString, VARIANT>& ret);
 
 private:
+	CsyrPlayerDlg* m_pDlg;
 	HINSTANCE m_hinst;
 	LPFNOBJECTFROMLRESULT m_pfObjectFromLresult;
 	UINT m_unMsg;
 
 	map<unsigned int, SHtmlScriptData> m_mapYYid2ptr;
-
-	CsyrPlayerDlg* m_pDlg;
+	BOOL m_bShowYYApp;
 };

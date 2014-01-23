@@ -39,15 +39,15 @@ public:
 	~CsyrPlayerDlg();
 
 // 对话框数据
-	enum { IDD = IDD_YYNICK_DIALOG };
+	enum { IDD = IDD_SYRPLAYER_DIALOG };
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
 
 // 实现
 public:
-	void AddYY(unsigned int unID);
-	void DelYY(unsigned int unID);
+	void AddYY(unsigned int imId);
+	void DelYY(unsigned int imId);
 
 	int modifyYY(int idx, int item, CString val);
 
@@ -102,6 +102,7 @@ public:
 
 	// 生成的消息映射函数
 	virtual BOOL OnInitDialog();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
@@ -117,6 +118,7 @@ public:
 	afx_msg void OnBnClickedButtonUp();
 	afx_msg void OnBnClickedButtonDown();
 	afx_msg void OnBnClickedButtonDel();
+	afx_msg void OnBnClickedButtonHideyyapp();
 
 	afx_msg void OnEnChangeEditFilter();
 	afx_msg void OnBnClickedCheckUsekey();

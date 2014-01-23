@@ -25,9 +25,11 @@ void CHtmlWndMgr::DelInstance()
 }
 
 CHtmlWndMgr::CHtmlWndMgr(void)
-	: m_hinst(NULL)
+	: m_pDlg(NULL)
+	, m_hinst(NULL)
 	, m_pfObjectFromLresult(NULL)
 	, m_unMsg(0)
+	, m_bShowYYApp(TRUE)
 {
 }
 
@@ -99,7 +101,7 @@ void CHtmlWndMgr::Refresh()
 				if (strClass == ieClass)
 				{
 					SHtmlScriptData stData;
-					if (GetHtmlWnd(hWndIE, stData))
+					if (GetHtmlWnd(hWndQW, hWndIE, stData))
 					{
 						mapHtmlWnd[stData.imId] = stData;
 					}
@@ -138,14 +140,26 @@ void CHtmlWndMgr::Refresh()
 	}
 }
 
-void CHtmlWndMgr::OnDelYY(unsigned int unID)
+BOOL CHtmlWndMgr::ToggleYYAppVisible()
 {
-	DelYY(unID);
+	m_bShowYYApp = !m_bShowYYApp;
+	int nCmdShow = m_bShowYYApp ? SW_SHOW : SW_HIDE;
+	for (map<unsigned int, SHtmlScriptData>::iterator itr = m_mapYYid2ptr.begin();
+		itr != m_mapYYid2ptr.end(); ++itr)
+	{
+		::ShowWindow(itr->second.hWnd, nCmdShow);
+	}
+	return m_bShowYYApp;
 }
 
-BOOL CHtmlWndMgr::GetUserInfo(unsigned int unID, map<CString, VARIANT>& userInfo)
+void CHtmlWndMgr::OnDelYY(unsigned int imId)
 {
-	SHtmlScriptData* pScData = GetPtrByID(unID);
+	m_mapYYid2ptr.erase(imId);
+}
+
+BOOL CHtmlWndMgr::GetUserInfo(unsigned int imId, map<CString, VARIANT>& userInfo)
+{
+	SHtmlScriptData* pScData = GetPtrByID(imId);
 	if (pScData == NULL)
 	{
 		return FALSE;
@@ -155,16 +169,16 @@ BOOL CHtmlWndMgr::GetUserInfo(unsigned int unID, map<CString, VARIANT>& userInfo
 	//BOOL br = exeWithNoArg(pScData->pScriptEx, pScData->lGetName, userInfo);
 	//if (!br)
 	//{
-	//	DelYY(unID);
+	//	DelYY(imId);
 	//	return FALSE;
 	//}
 
 	return TRUE;
 }
 
-BOOL CHtmlWndMgr::Rename(unsigned int unID, CString nick)
+BOOL CHtmlWndMgr::Rename(unsigned int imId, CString nick)
 {
-	SHtmlScriptData* pScData = GetPtrByID(unID);
+	SHtmlScriptData* pScData = GetPtrByID(imId);
 	if (pScData == NULL)
 	{
 		return FALSE;
@@ -192,14 +206,14 @@ BOOL CHtmlWndMgr::Rename(unsigned int unID, CString nick)
 	{
 		//MessageBox
 		//bad
-		DelYY(unID);
+		DelYY(imId);
 		return FALSE;
 	}
 
 	return TRUE;
 }
 
-BOOL CHtmlWndMgr::GetHtmlWnd(HWND hwndIE, SHtmlScriptData& stData)
+BOOL CHtmlWndMgr::GetHtmlWnd(HWND hWndQW, HWND hwndIE, SHtmlScriptData& stData)
 {
 	if (m_pfObjectFromLresult == NULL)
 	{
@@ -311,6 +325,7 @@ BOOL CHtmlWndMgr::GetHtmlWnd(HWND hwndIE, SHtmlScriptData& stData)
 		return FALSE;
 	}
 
+	stData.hWnd = hWndQW;
 	stData.pScriptEx = pScUserEx;
 	stData.lSetName = dispidSet;
 	stData.lGetName = dispidGet;
@@ -342,20 +357,16 @@ unsigned int CHtmlWndMgr::AddYY(SHtmlScriptData& stData)
 	return stData.imId;
 }
 
-BOOL CHtmlWndMgr::DelYY(unsigned int unID)
+BOOL CHtmlWndMgr::DelYY(unsigned int imId)
 {
-	map<unsigned int, SHtmlScriptData>::iterator _find = m_mapYYid2ptr.find(unID);
-	if (_find != m_mapYYid2ptr.end())
-	{
-		m_mapYYid2ptr.erase(_find);
-		m_pDlg->DelYY(unID);
-	}
+	m_mapYYid2ptr.erase(imId);
+	m_pDlg->DelYY(imId);
 	return TRUE;
 }
 
-CHtmlWndMgr::SHtmlScriptData* CHtmlWndMgr::GetPtrByID(unsigned int unID)
+CHtmlWndMgr::SHtmlScriptData* CHtmlWndMgr::GetPtrByID(unsigned int imId)
 {
-	map<unsigned int, SHtmlScriptData>::iterator _find = m_mapYYid2ptr.find(unID);
+	map<unsigned int, SHtmlScriptData>::iterator _find = m_mapYYid2ptr.find(imId);
 	if (_find == m_mapYYid2ptr.end())
 	{
 		return NULL;
@@ -427,7 +438,7 @@ BOOL CHtmlWndMgr::exeWithNoArg(CComPtr<IDispatchEx> pScEx, DISPID dispid, map<CS
 	{
 		//MessageBox
 		//bad
-		//DelYY(unID);
+		//DelYY(imId);
 		return FALSE;
 	}
 

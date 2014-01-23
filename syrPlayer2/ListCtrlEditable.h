@@ -197,6 +197,8 @@ public:
 
 	void OnItemChanged(NMHDR *pNMHDR, LRESULT *pResult);
 
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
+
 protected:
 	DECLARE_MESSAGE_MAP()
 

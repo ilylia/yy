@@ -1,11 +1,11 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ 生成的包含文件。
-// 供 syrPlayer.rc 使用
+// Microsoft Visual C++ generated include file.
+// Used by syrPlayer.rc
 //
 #define IDM_ABOUTBOX                    0x0010
 #define IDD_ABOUTBOX                    100
 #define IDS_ABOUTBOX                    101
-#define IDD_YYNICK_DIALOG               102
+#define IDD_SYRPLAYER_DIALOG            102
 #define IDR_MAINFRAME                   128
 #define IDD_DIALOG_KEYSET               132
 #define IDC_BUTTON_FRESH                1000
@@ -22,6 +22,7 @@
 #define IDC_BUTTON_DOWN                 1021
 #define IDC_BUTTON_DEL                  1022
 #define IDC_BUTTON_REFRESH              1023
+#define IDC_BUTTON_HIDEYYAPP            1024
 #define IDC_CHECK_CTRL_BEGIN            1029
 #define IDC_CHECK_SHIFT_BEGIN           1030
 #define IDC_CHECK_ALT_BEGIN             1031

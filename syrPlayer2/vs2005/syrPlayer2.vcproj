@@ -297,6 +297,10 @@
 				RelativePath="..\res\syrPlayer.rc2"
 				>
 			</File>
+			<File
+				RelativePath="..\res\syrPlayer1.ico"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="tinyxml"
@@ -328,5 +332,9 @@
 		</Filter>
 	</Files>
 	<Globals>
+		<Global
+			Name="RESOURCE_FILE"
+			Value="\workplace\c\yy\syr\syrPlayer2\syrPlayer.rc"
+		/>
 	</Globals>
 </VisualStudioProject>

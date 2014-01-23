@@ -341,3 +341,22 @@ void CListCtrlEditable::OnNMDblclk(NMHDR *pNMHDR, LRESULT *pResult)
 	// ÏÔÊ¾¿Ø¼þ
 	ShowColumCtrl(nItem, nSubItem);
 }
+
+BOOL CListCtrlEditable::PreTranslateMessage(MSG* pMsg)
+{
+	if (pMsg->message == WM_KEYDOWN)
+	{
+		switch (pMsg->wParam)
+		{
+		case VK_RETURN: //ÆÁ±Î»Ø³µ¼ü
+			HideAllColumCtrl();
+			return TRUE;
+		case VK_ESCAPE: //ÆÁ±ÎESC¼ü
+			HideAllColumCtrl();
+			return TRUE;
+		default:
+			break;
+		}
+	}
+	return CListCtrl::PreTranslateMessage(pMsg);
+}
