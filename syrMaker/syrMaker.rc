@@ -64,8 +64,8 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON                    "res\\syrMaker.ico"
-IDR_SYRDOC              ICON                    "res\\syrMakerDoc.ico"
+IDR_MAINFRAME           ICON                    "res\\syrMaker1.ico"
+IDR_SYRDOC              ICON                    "res\\syrMakerDoc1.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -116,7 +116,7 @@ BEGIN
     CTEXT           "00:00",IDC_STATIC_TIME,378,58,51,22,SS_CENTERIMAGE | WS_BORDER
     GROUPBOX        "时间轴",IDC_GROUP_TIMEAXIS,10,86,421,108
     CONTROL         "",IDC_STATIC_TIMEAXIS,"Static",SS_BLACKFRAME | SS_NOTIFY,20,100,400,84
-    CONTROL         "",IDC_RICHEDIT21_TEXT,"RichEdit20W",ES_MULTILINE | ES_NOHIDESEL | ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,238,26,180,12
+    CONTROL         "",IDC_RICHEDIT21_TEXT,"RichEdit20W",WS_VSCROLL | WS_HSCROLL | WS_TABSTOP | 0x1104,238,26,180,12
     PUSHBUTTON      "快进",IDC_BTN_FORWARD,343,54,26,14
     PUSHBUTTON      "快退",IDC_BTN_BACKWARD,343,70,26,14
     PUSHBUTTON      "YY\n列表",IDC_BUTTON_YYLIST,11,55,24,24,BS_MULTILINE
@@ -171,8 +171,8 @@ CAPTION "YY列表"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     CONTROL         "",IDC_LIST_YY,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,11,36,162,145
-    PUSHBUTTON      "刷新",IDC_BTN_YYL_FRESH,46,7,36,14
-    PUSHBUTTON      "设置",IDC_BTN_YYL_FRESHSET,113,7,36,14
+    PUSHBUTTON      "刷新",IDC_BTN_YYL_FRESH,38,7,36,14
+    PUSHBUTTON      "隐藏YY应用窗口",IDC_BTN_YYL_HIDEYYAPP,90,7,69,14
     GROUPBOX        "YY号",IDC_STATIC,5,26,193,161
     PUSHBUTTON      "上移",IDC_BTN_YYL_UP,177,40,16,24,BS_MULTILINE
     PUSHBUTTON      "下移",IDC_BTN_YYL_DOWN,178,94,16,24,BS_MULTILINE
@@ -246,7 +246,7 @@ IDR_MENU_SYRMAKER MENU
 BEGIN
     POPUP "主界面右键"
     BEGIN
-        MENUITEM "从lrc导入时间点",               ID_SYRMAKER_LOADLRCTP
+        MENUITEM "从lrc导入时间点",                   ID_SYRMAKER_LOADLRCTP
     END
 END
 

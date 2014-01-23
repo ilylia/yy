@@ -33,6 +33,7 @@ CsyrMakerDlg::~CsyrMakerDlg()
 
 	// 
 	delete m_vEdit[0];
+	delete m_vButton[0];
 
 	if (m_pYYListDlg != NULL)
 		delete m_pYYListDlg;

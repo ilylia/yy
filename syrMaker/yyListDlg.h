@@ -8,14 +8,13 @@ using namespace std;
 
 struct SYYInfo
 {
-	HWND m_hWndParent;			// YY设置窗口
-	HWND m_hEditName;			// 用户名
-	HWND m_hEditNick;			// 昵称
-	HWND m_hEditSign;			// 签名
-	HWND m_hBtnApply;			// 应用按钮
-	HWND m_hLabelEdit;          // 
-	HWND m_hEdit;				//
-	CString m_sNick;			// 昵称
+	unsigned int m_imId;
+	CString m_sNick;	// 昵称
+	CString m_sSign;
+
+	SYYInfo() : m_imId(0)
+	{
+	}
 };
 
 class CyyListDlg : public CDialog
@@ -30,19 +29,18 @@ public:
 	enum { IDD = IDD_DIALOG_YYLIST };
 
 public:
+	void AddYY(unsigned int imId);
+	void DelYY(unsigned int imId);
+
 	int setNick(int idx, CString nick);			// 改idx号YY的昵称，实现字幕
 	int setNick();
 
-	int getYYFromMain(CString strClassName);
-	int getYYFromSetup(CString strClassName);
+private:
+	void SendNick(SYYInfo& syp, CString str);
 
 private:
 	CListCtrl m_lYY;			// YY列表
 	vector<SYYInfo> m_sYY;		// yy
-
-// 	int m_iYYType;				// yy句柄类型，0:YY主界面  1:YY设置界面
-// 	BOOL m_bUseSBox;			// 是否使用沙盘
-// 	CString m_strSBoxName;		// 沙盘名
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
@@ -51,7 +49,7 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedFresh();
-	afx_msg void OnBnClickedButtonFreshset();
+	afx_msg void OnBnClickedButtonHideyyapp();
 	afx_msg void OnBnClickedButtonUp();
 	afx_msg void OnBnClickedButtonDown();
 	afx_msg void OnBnClickedButtonDel();

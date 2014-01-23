@@ -11,9 +11,6 @@ public:
 
 public:
 	BOOL m_bEdit;				// 
-	int m_iYYType;				// yy句柄类型，0:YY主界面  1:YY设置界面
-	BOOL m_bUseSBox;			// 是否使用沙盘
-	CString m_strSBoxName;		// 沙盘名
 	CString m_syrPath;			// syr路径
 };
 

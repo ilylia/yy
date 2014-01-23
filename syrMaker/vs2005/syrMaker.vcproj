@@ -194,7 +194,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Config.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\fileListDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\HtmlWndMgr.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\HyperLink.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\lrc.cpp"
 				>
 			</File>
 			<File
@@ -238,7 +254,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\timeCopyDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\timeSetDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\yyListDlg.cpp"
 				>
 			</File>
 		</Filter>
@@ -252,7 +276,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Config.h"
+				>
+			</File>
+			<File
+				RelativePath="..\fileListDlg.h"
+				>
+			</File>
+			<File
+				RelativePath="..\HtmlWndMgr.h"
+				>
+			</File>
+			<File
 				RelativePath="..\HyperLink.h"
+				>
+			</File>
+			<File
+				RelativePath="..\lrc.h"
 				>
 			</File>
 			<File
@@ -284,7 +324,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\timeCopyDlg.h"
+				>
+			</File>
+			<File
 				RelativePath="..\timeSetDlg.h"
+				>
+			</File>
+			<File
+				RelativePath="..\yyListDlg.h"
 				>
 			</File>
 		</Filter>
@@ -306,7 +354,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\res\syrMaker1.ico"
+				>
+			</File>
+			<File
 				RelativePath="..\res\syrMakerDoc.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\res\syrMakerDoc1.ico"
 				>
 			</File>
 		</Filter>

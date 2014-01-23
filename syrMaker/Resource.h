@@ -66,7 +66,7 @@
 #define IDC_EDIT_FILE_SEARCH            2323
 #define IDC_LIST_YY                     2324
 #define IDC_BTN_YYL_FRESH               2325
-#define IDC_BTN_YYL_FRESHSET            2326
+#define IDC_BTN_YYL_HIDEYYAPP           2326
 #define IDC_BTN_YYL_UP                  2327
 #define IDC_BTN_YYL_DOWN                2328
 #define IDC_BTN_YYL_DEL                 2329

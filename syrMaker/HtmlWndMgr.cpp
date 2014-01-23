@@ -1,6 +1,7 @@
 #include "StdAfx.h"
+#include "resource.h"
 #include "HtmlWndMgr.h"
-#include "syrPlayerDlg.h"
+#include "yyListDlg.h"
 #include <vector>
 using std::vector;
 
@@ -39,7 +40,7 @@ CHtmlWndMgr::~CHtmlWndMgr(void)
 }
 
 // public functions
-bool CHtmlWndMgr::Init(CsyrPlayerDlg* pDlg)
+bool CHtmlWndMgr::Init(CyyListDlg* pDlg)
 {
 	CoInitialize(NULL);
 	m_hinst = ::LoadLibrary(_T("OLEACC.DLL"));
