@@ -5,7 +5,75 @@
 #include <vector>
 using std::vector;
 
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#endif
+
 const int max_nick_length = 20;
+
+
+void CHtmlScriptData::BeginThread()
+{
+	CoMarshalInterThreadInterfaceInStream(IID_IDispatchEx, pScriptEx, &pScStream);
+	hThread = (HANDLE)_beginthreadex(NULL, 0, ThdProc, this, 0, NULL);
+}
+
+unsigned int CHtmlScriptData::ThdProc( void* lpParameter )
+{
+	if (lpParameter == NULL)
+	{
+		return 0;
+	}
+
+	CHtmlScriptData* pScData = (CHtmlScriptData*)lpParameter;
+	pScData->DoProc();
+
+	return 1;
+}
+
+void CHtmlScriptData::DoProc()
+{
+	CoInitialize(NULL);
+
+	// 反列集得到IDisPatch指针
+	CComPtr<IDispatchEx> pScEx;
+	CoGetInterfaceAndReleaseStream(pScStream, IID_IDispatchEx, (LPVOID *)&pScEx);
+	pScStream = NULL;
+
+	while(bRunning)
+	{
+		iSema.Wait();
+		CString nick;
+		iLock.Lock();
+		if (ltRename.size() > 0)
+		{
+			nick = ltRename.back();
+			ltRename.clear();
+		}
+		iLock.Unlock();
+		if (nick.GetLength() == 0)
+		{
+			continue;
+		}
+
+		VARIANT arg;
+		arg.vt = VT_BSTR;
+		arg.bstrVal = nick.AllocSysString();
+		DISPPARAMS dpArgs = {&arg, NULL, 1, 0};
+		HRESULT hr = pScEx->InvokeEx(lSetName, LOCALE_SYSTEM_DEFAULT, DISPATCH_METHOD,
+			&dpArgs, NULL, NULL, NULL);
+		::SysFreeString( arg.bstrVal );
+		if (FAILED(hr))
+		{
+			//return FALSE;
+		}
+	}
+
+	::CoUninitialize();
+
+	iDelSema.Signal();
+}
+
 
 static CHtmlWndMgr* s_pYYApiMgr = NULL;
 
@@ -58,6 +126,14 @@ bool CHtmlWndMgr::Init(CyyListDlg* pDlg)
 
 void CHtmlWndMgr::Release()
 {
+	for (map<unsigned int, CHtmlScriptData*>::iterator itr = m_mapYYid2ptr.begin();
+		itr != m_mapYYid2ptr.end(); ++itr)
+	{
+		if (itr->second != NULL)
+		{
+			delete itr->second;
+		}
+	}
 	m_mapYYid2ptr.clear();
 
 	if (m_hinst != NULL)
@@ -69,7 +145,7 @@ void CHtmlWndMgr::Release()
 
 void CHtmlWndMgr::Refresh()
 {
-	map<unsigned int, SHtmlScriptData> mapHtmlWnd;
+	map<unsigned int, CHtmlScriptData*> mapHtmlWnd;
 	CString winClass = _T("QWidget");
 	CString ieClass = _T("Internet Explorer_Server");
 	HWND hWndQW = NULL;
@@ -103,10 +179,10 @@ void CHtmlWndMgr::Refresh()
 				CString strClass = buf;
 				if (strClass == ieClass)
 				{
-					SHtmlScriptData stData;
-					if (GetHtmlWnd(hWndQW, hWndIE, stData))
+					CHtmlScriptData* pData = NULL;
+					if (GetHtmlWnd(hWndQW, hWndIE, &pData))
 					{
-						mapHtmlWnd[stData.imId] = stData;
+						mapHtmlWnd[pData->imId] = pData;
 					}
 					break;
 				}
@@ -117,7 +193,7 @@ void CHtmlWndMgr::Refresh()
 		} while (TRUE);
 	} while (hWndQW != NULL);
 
-	for (map<unsigned int, SHtmlScriptData>::iterator itr = mapHtmlWnd.begin();
+	for (map<unsigned int, CHtmlScriptData*>::iterator itr = mapHtmlWnd.begin();
 		itr != mapHtmlWnd.end(); ++itr)
 	{
 		//if (m_mapYYid2ptr.find(itr->second.imId) == m_mapYYid2ptr.end())
@@ -127,7 +203,7 @@ void CHtmlWndMgr::Refresh()
 		//}
 	}
 	vector<unsigned int> vtNeedDel;
-	for (map<unsigned int, SHtmlScriptData>::iterator itr = m_mapYYid2ptr.begin();
+	for (map<unsigned int, CHtmlScriptData*>::iterator itr = m_mapYYid2ptr.begin();
 		itr != m_mapYYid2ptr.end(); ++itr)
 	{
 		if (mapHtmlWnd.find(itr->first) == mapHtmlWnd.end())
@@ -147,76 +223,61 @@ BOOL CHtmlWndMgr::ToggleYYAppVisible()
 {
 	m_bShowYYApp = !m_bShowYYApp;
 	int nCmdShow = m_bShowYYApp ? SW_SHOW : SW_HIDE;
-	for (map<unsigned int, SHtmlScriptData>::iterator itr = m_mapYYid2ptr.begin();
+	for (map<unsigned int, CHtmlScriptData*>::iterator itr = m_mapYYid2ptr.begin();
 		itr != m_mapYYid2ptr.end(); ++itr)
 	{
-		::ShowWindow(itr->second.hWnd, nCmdShow);
+		::ShowWindow(itr->second->hWnd, nCmdShow);
 	}
 	return m_bShowYYApp;
 }
 
 void CHtmlWndMgr::OnDelYY(unsigned int imId)
 {
-	m_mapYYid2ptr.erase(imId);
+	map<unsigned int, CHtmlScriptData*>::iterator _find = m_mapYYid2ptr.find(imId);
+	if (_find != m_mapYYid2ptr.end())
+	{
+		if (_find->second != NULL)
+		{
+			delete _find->second;
+		}
+		m_mapYYid2ptr.erase(_find);
+	}
 }
 
 BOOL CHtmlWndMgr::GetUserInfo(unsigned int imId, map<CString, VARIANT>& userInfo)
 {
-	SHtmlScriptData* pScData = GetPtrByID(imId);
+	CHtmlScriptData* pScData = GetPtrByID(imId);
 	if (pScData == NULL)
 	{
 		return FALSE;
 	}
 
 	userInfo = pScData->userInfo;
-	//BOOL br = exeWithNoArg(pScData->pScriptEx, pScData->lGetName, userInfo);
-	//if (!br)
-	//{
-	//	DelYY(imId);
-	//	return FALSE;
-	//}
 
 	return TRUE;
 }
 
 BOOL CHtmlWndMgr::Rename(unsigned int imId, CString nick)
 {
-	SHtmlScriptData* pScData = GetPtrByID(imId);
+	CHtmlScriptData* pScData = GetPtrByID(imId);
 	if (pScData == NULL)
 	{
 		return FALSE;
 	}
 
-	try
+	if (nick.GetLength() > max_nick_length)
 	{
-		VARIANT arg;
-		arg.vt = VT_BSTR;
-		arg.bstrVal = nick.AllocSysString();
-		DISPPARAMS dpArgs = {&arg, NULL, 1, 0};
-		HRESULT hr = pScData->pScriptEx->InvokeEx(pScData->lSetName, LOCALE_SYSTEM_DEFAULT, DISPATCH_METHOD,
-			&dpArgs, NULL, NULL, NULL);
-		::SysFreeString( arg.bstrVal );
-		if (FAILED(hr))
-		{
-			return FALSE;
-		}
+		nick.Delete(max_nick_length, nick.GetLength()-max_nick_length);
 	}
-	//catch (CMemoryException* e)
-	//{
-	//	
-	//}
-	catch (CException* /*e*/)
-	{
-		//MessageBox
-		//bad
-		DelYY(imId);
-		return FALSE;
-	}
+	pScData->iLock.Lock();
+	pScData->ltRename.push_back(nick);
+	pScData->iLock.Unlock();
+	pScData->iSema.Signal();
 
 	return TRUE;
 }
 
-BOOL CHtmlWndMgr::GetHtmlWnd(HWND hWndQW, HWND hwndIE, SHtmlScriptData& stData)
+BOOL CHtmlWndMgr::GetHtmlWnd(HWND hWndQW, HWND hwndIE, CHtmlScriptData** pData)
 {
 	if (m_pfObjectFromLresult == NULL)
 	{
@@ -328,53 +389,67 @@ BOOL CHtmlWndMgr::GetHtmlWnd(HWND hWndQW, HWND hwndIE, SHtmlScriptData& stData)
 		return FALSE;
 	}
 
-	stData.hWnd = hWndQW;
-	stData.pScriptEx = pScUserEx;
-	stData.lSetName = dispidSet;
-	stData.lGetName = dispidGet;
-	stData.imId = userInfo[_T("imId")].uintVal;
-	stData.userInfo = userInfo;
+	*pData = new CHtmlScriptData();
+	(*pData)->hWnd = hWndQW;
+	(*pData)->pScriptEx = pScUserEx;
+	(*pData)->lSetName = dispidSet;
+	(*pData)->lGetName = dispidGet;
+	(*pData)->imId = userInfo[_T("imId")].uintVal;
+	(*pData)->userInfo = userInfo;
 
 	return TRUE;
 }
 
-unsigned int CHtmlWndMgr::AddYY(SHtmlScriptData& stData)
+unsigned int CHtmlWndMgr::AddYY(CHtmlScriptData* pData)
 {
-	if (stData.pScriptEx == NULL)
+	if (pData == NULL || pData->pScriptEx == NULL)
 	{
 		return 0;
 	}
 
-	if (m_mapYYid2ptr.find(stData.imId) == m_mapYYid2ptr.end())
+	if (m_mapYYid2ptr.find(pData->imId) == m_mapYYid2ptr.end())
 	{
-		m_mapYYid2ptr[stData.imId] = stData;
-		m_pDlg->AddYY(stData.imId);
+		m_mapYYid2ptr[pData->imId] = pData;
+		m_pDlg->AddYY(pData->imId);
+
+		//thread
+		m_mapYYid2ptr[pData->imId]->BeginThread();
 	}
 	else
 	{
-		m_mapYYid2ptr[stData.imId].pScriptEx = stData.pScriptEx;
-		m_mapYYid2ptr[stData.imId].lGetName = stData.lGetName;
-		m_mapYYid2ptr[stData.imId].lSetName = stData.lSetName;
+		m_mapYYid2ptr[pData->imId]->pScriptEx = pData->pScriptEx;
+		m_mapYYid2ptr[pData->imId]->lGetName = pData->lGetName;
+		m_mapYYid2ptr[pData->imId]->lSetName = pData->lSetName;
+		delete pData;
 	}
 
-	return stData.imId;
+	return pData->imId;
 }
 
 BOOL CHtmlWndMgr::DelYY(unsigned int imId)
 {
-	m_mapYYid2ptr.erase(imId);
+	map<unsigned int, CHtmlScriptData*>::iterator _find = m_mapYYid2ptr.find(imId);
+	if (_find == m_mapYYid2ptr.end())
+	{
+		return FALSE;
+	}
+
+	delete _find->second;
+
+	m_mapYYid2ptr.erase(_find);
 	m_pDlg->DelYY(imId);
+
 	return TRUE;
 }
 
-CHtmlWndMgr::SHtmlScriptData* CHtmlWndMgr::GetPtrByID(unsigned int imId)
+CHtmlScriptData* CHtmlWndMgr::GetPtrByID(unsigned int imId)
 {
-	map<unsigned int, SHtmlScriptData>::iterator _find = m_mapYYid2ptr.find(imId);
+	map<unsigned int, CHtmlScriptData*>::iterator _find = m_mapYYid2ptr.find(imId);
 	if (_find == m_mapYYid2ptr.end())
 	{
 		return NULL;
 	}
-	return &_find->second;
+	return _find->second;
 }
 
 BOOL CHtmlWndMgr::exeWithNoArg(CComPtr<IDispatchEx> pScEx, DISPID dispid, map<CString, VARIANT>& result)
